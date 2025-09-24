@@ -19,7 +19,7 @@ import org.vaadin.demo.data.SamplePersonRepository;
  *
  */
 @SpringBootApplication
-@Theme(value = "my-showcase-app")
+@Theme(value = "vaadin-jug-demo")
 @Push
 public class Application implements AppShellConfigurator {
 
