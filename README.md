@@ -1,15 +1,22 @@
+Here’s a polished version of your README with clearer structure, improved grammar, and a more presentation-friendly style while keeping it concise and developer-focused:
+
+---
+
 # vaadin-jug-demo
 
-A small, demo-friendly Vaadin app you can run on your local machine to get a better undersrtanding of Vaadin and start from an existing project.
+A demo-friendly **Vaadin + Spring Boot** app to showcase how you can build modern, reactive UIs in pure Java.
+Run it locally, explore the examples, and use it as a starting point for your own projects.
 
-## Tech Stack
+---
 
-- Java 21
-- Spring Boot
-- Vaadin Flow
-- Spring AI
-- Spring Data JPA
-- Maven 3.8.4+ (also Maven Wrapper included)
+## 🛠 Tech Stack
+
+* **Java 21**
+* **Spring Boot**
+* **Vaadin Flow**
+* **Spring AI** (with OpenAI integration)
+* **Spring Data JPA**
+* **Maven 3.8.4+** (Maven Wrapper included)
 
 ---
 
@@ -17,88 +24,106 @@ A small, demo-friendly Vaadin app you can run on your local machine to get a bet
 
 ### Prerequisites
 
-- Java Development Kit (JDK) 17+ or 21
-- Internet access (required for downloading frontend dependencies and calling the AI provider)
-- Maven is not required globally (the Maven Wrapper `./mvnw` is included)
-- temporarily you need a valid OpenAI API key
+* JDK 17+ (recommended: 21)
+* Internet access (for frontend dependencies & AI calls)
+* Maven not required globally → use included `./mvnw`
+* Temporary requirement: a valid **OpenAI API key**
 
-Note: Vaadin manages required frontend tooling automatically during development builds.
+> ℹ️ Vaadin automatically manages frontend tooling during dev builds.
 
-### Configure AI API access
+---
 
-This project uses Spring AI and OpenAI. You must provide credentials and a model for your preferred provider.
+### 1. Configure AI Access
 
-Add the relevant properties (for example in `src/main/resources/application.properties` or via environment variables).
+This project uses **Spring AI**. You need to provide credentials for your chosen AI provider.
 
-- Example: OpenAI
+Add the properties in `src/main/resources/application.properties` or as environment variables.
 
-    ```
-    spring.ai.openai.api-key=${OPENAI_API_KEY}
-    ```
-  
-If you want to know how to setup the openai api key in your environment, please refer to the [Vaadin AI docs](https://vaadin.com/docs/latest/building-apps/ai/technical-setup).
+Example (OpenAI):
 
-### Run in Dev Mode (recommended)
-
-```bash
-mvnw spring-boot:run
+```properties
+spring.ai.openai.api-key=${OPENAI_API_KEY}
 ```
 
-Open: [http://localhost:8080](http://localhost:8080)
+👉 For setup instructions, see the [Vaadin AI docs](https://vaadin.com/docs/latest/building-apps/ai/technical-setup).
 
-> Dev mode includes live reload and on‑the‑fly frontend generation.
+---
 
-
-### IDE Setup
-
-You can also run the application in your IDE. If you want to know how to set up your preferred IDE, please refer to the [IDE Setup](https://vaadin.com/docs/latest/getting-started/import) in the Vaadin Docs.
-
-* Import as **Maven** project
-* Setup the OpenAI API Key in your environment according to [Vaadin AI docs](https://vaadin.com/docs/latest/building-apps/ai/technical-setup/ide)
-* Run `Application` (Spring Boot main class)
-
-I highly recommend to start the application with the Hotswap Agent to make sure that your changes are applied immediately and visible in the browser.
-
-### Production Build & Run
+### 2. Run in Dev Mode in Terminal
 
 ```bash
-mvn -Pproduction clean package
+./mvnw spring-boot:run
+```
+
+Then open: [http://localhost:8080](http://localhost:8080)
+
+> Includes live reload and on-the-fly frontend builds.
+
+---
+
+### 3. Run from IDE  (recommended)
+
+* Import as **Maven** project
+* Configure OpenAI API key ([docs](https://vaadin.com/docs/latest/building-apps/ai/technical-setup/ide))
+* Run `Application.java` (Spring Boot main class)
+
+💡 Tip: Use **Hotswap Agent** to instantly see code changes in your browser.
+
+---
+
+### 4. Production Build & Run
+
+```bash
+./mvnw -Pproduction clean package
 java -jar target/*.jar
 ```
 
-## What you get
+---
 
-- Vaadin Flow application with several UI views that covers typical use cases:
-    - Simple Hello World View for Demo purposes
-    - Person Form to edit a sample person entity
-    - Crud Example view with a grid and a corresponding form of SamplePerson
-    - Collaborative Crud Example view with CE features to visualize concurrent changes from other users
-    - Data Grid with an extended example of a grid with Filter and individual column rendering
-    - Slow Grid with an asynchronous loading of data
-    - Simple Chat view to send messages to other app users
-    - AI Chat view to send messages to the AI provider and stream the response as markdown
-    - AI interaction in context of a typical web application use case
+## 📖 What’s Inside
 
-## Project structure
+Prebuilt views to showcase Vaadin features:
 
-- `src/main/java`
-    - `.../Application.java` – Spring Boot entry point and application setup.
-    - `.../views/MainView.java` – Abstract View to show UI elements like menu and headline to all other views 
-    - `.../views/...` – Vaadin views. The main chat UI lives here and is mapped to the root route.
-    - `.../services/...` – Application services (e.g., the AI chat service that wraps Spring AI ChatClient and memory).
-    - `.../data/...` – Entities and repositories (JPA). The app can initialize demo data only when the database is
-      empty.
-- `src/main/resources`
-    - `application.properties` – Configuration (including Spring AI properties).
-    - Optional SQL init scripts (executed only when the DB is empty).
-- `src/main/frontend`
-    - `themes/` – Custom theme for Vaadin.
-    - `themes/vaadin-jug-demo/views/` – Client-side assets (if any).
-
-## Useful links
-
-- Vaadin Docs: https://vaadin.com/docs
-- Spring Boot Docs: https://docs.spring.io/spring-boot/docs/current/reference/html/
-- Spring AI Docs: https://docs.spring.io/spring-ai/reference/
+* **Hello World** – simplest demo view
+* **Person Form** – edit a sample entity
+* **CRUD Example** – grid + form (with `SamplePerson`)
+* **Collaborative CRUD** – concurrent user updates with CE
+* **Data Grid** – filtering, column rendering
+* **Slow Grid** – async data loading
+* **Chat** – messaging between users
+* **AI Chat** – chat with an AI provider, streamed as markdown
+* **AI Integration** – real-world usage examples
 
 ---
+
+## 📂 Project Structure
+
+```
+src/main/java
+ ├─ Application.java        # Spring Boot entry point
+ ├─ views/MainView.java     # Base layout (menu + header)
+ ├─ views/...               # Vaadin views (UI components)
+ ├─ services/...            # Business logic & AI services
+ └─ data/...                # Entities & JPA repositories
+
+src/main/resources
+ ├─ application.properties  # Config (AI keys etc.)
+ └─ db/...                  # Optional SQL init scripts
+
+src/main/frontend
+ └─ themes/vaadin-jug-demo  # Custom theme & assets
+```
+
+---
+
+## 🔗 Useful Links
+
+* [Vaadin Docs](https://vaadin.com/docs)
+* [Spring Boot Docs](https://docs.spring.io/spring-boot/docs/current/reference/html/)
+* [Spring AI Docs](https://docs.spring.io/spring-ai/reference/)
+
+---
+
+👉 This version is shorter, more visual (with emojis & code fencing), and optimized for presentations and demos.
+
+Do you want me to also make a **minimal “presentation mode” README** (just installation + run instructions + one screenshot) that you can show live without overwhelming the audience?
