@@ -14,7 +14,7 @@ import org.vaadin.lineawesome.LineAwesomeIconUrl;
 import java.time.Instant;
 
 @PageTitle("AI Chat")
-@Menu(title = "AI Chat", icon = LineAwesomeIconUrl.ROBOT_SOLID, order = 7)
+@Menu(title = "AI Chat", icon = LineAwesomeIconUrl.ROBOT_SOLID, order = 8)
 @Route(value = "chat-ai")
 public class AiChatView extends VerticalLayout {
 

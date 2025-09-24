@@ -22,7 +22,7 @@ import java.util.UUID;
 
 @PageTitle("Chat")
 @Route("chat")
-@Menu(order = 6, icon = LineAwesomeIconUrl.COMMENTS)
+@Menu(order = 7, icon = LineAwesomeIconUrl.COMMENTS)
 public class ChatView extends HorizontalLayout {
 
     public static class ChatTab extends Tab {

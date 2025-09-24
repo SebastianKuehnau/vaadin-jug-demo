@@ -28,7 +28,7 @@ import java.time.Instant;
 import java.util.List;
 
 @PageTitle("AI Chat with Context")
-@Menu(title = "AI Chat & Context", icon = LineAwesomeIconUrl.WRENCH_SOLID, order = 8)
+@Menu(title = "AI Chat & Context", icon = LineAwesomeIconUrl.WRENCH_SOLID, order = 9)
 @Route(value = "chat-ai-with-context")
 public class AiChatWithContextView extends SplitLayout {
 
