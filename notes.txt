@@ -1,0 +1,42 @@
+1. Hello World
+
+    a. add Grid
+            Grid<SamplePerson> grid = new Grid<>(SamplePerson.class);
+            grid.setColumns("firstName", "lastName", "email");
+            grid.setSizeFull();
+
+    b. load data from repository
+            dataView = grid.setItems(repository.findAll());
+
+    c. add textfield
+            TextField filterField = new TextField();
+            filterField.setPlaceholder("Search by name...");
+            filterField.setWidthFull();
+            filterField.setClearButtonVisible(true);
+
+    d. add filter
+            filterField.addValueChangeListener(event -> {
+                String searchText = event.getValue();
+                if (searchText == null || searchText.trim().isEmpty()) {
+                    dataView.removeFilters();
+                } else {
+                    String lowerCaseFilter = searchText.toLowerCase().trim();
+                    dataView.addFilter(person ->
+                            person.getFirstName().toLowerCase().startsWith(lowerCaseFilter) ||
+                                    person.getLastName().toLowerCase().startsWith(lowerCaseFilter)
+                    );
+                }
+            });
+
+2. Person Form
+    a. show responsive
+    b. create from Bean
+
+3. Show Crud
+4. Collaborative Crud
+5. Data Grid
+6. Slow Grid
+7. External component
+8. Chat
+9. AI Chat
+10. AI Chat with context
