@@ -29,6 +29,7 @@ public class AiChatView extends VerticalLayout {
 
         var messageInput = new MessageInput();
         messageInput.setWidthFull();
+        messageInput.focus();
 
         messageInput.addSubmitListener(event -> {
             var question = event.getValue();

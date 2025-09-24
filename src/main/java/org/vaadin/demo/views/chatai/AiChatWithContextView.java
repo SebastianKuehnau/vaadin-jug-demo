@@ -65,6 +65,7 @@ public class AiChatWithContextView extends SplitLayout {
 
         var messageInput = new MessageInput();
         messageInput.addSubmitListener(this::onSubmit);
+        messageInput.focus();
 
         Button clear = new Button("Clear");
         clear.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
