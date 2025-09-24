@@ -115,6 +115,11 @@ src/main/frontend
 ```
 
 ---
+## Troubleshooting
+
+change the vaadin.frontend.hotdeploy=false to vaadin.frontend.hotdeploy=true in the application.properties file to enable hot deploy of the frontend code.
+
+execute the mvn vaadin:dance to clean and rebuild the frontend code.
 
 ## 🔗 Useful Links
 
