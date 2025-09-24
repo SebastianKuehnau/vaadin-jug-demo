@@ -61,7 +61,7 @@ Then open: [http://localhost:8080](http://localhost:8080)
 
 ---
 
-### 3. Run from IDE  (recommended)
+### 3. Run from IDE (recommended)
 
 * Import as **Maven** project
 * Configure OpenAI API key ([docs](https://vaadin.com/docs/latest/building-apps/ai/technical-setup/ide))
