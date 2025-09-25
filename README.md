@@ -126,9 +126,3 @@ execute the mvn vaadin:dance to clean and rebuild the frontend code.
 * [Vaadin Docs](https://vaadin.com/docs)
 * [Spring Boot Docs](https://docs.spring.io/spring-boot/docs/current/reference/html/)
 * [Spring AI Docs](https://docs.spring.io/spring-ai/reference/)
-
----
-
-👉 This version is shorter, more visual (with emojis & code fencing), and optimized for presentations and demos.
-
-Do you want me to also make a **minimal “presentation mode” README** (just installation + run instructions + one screenshot) that you can show live without overwhelming the audience?
