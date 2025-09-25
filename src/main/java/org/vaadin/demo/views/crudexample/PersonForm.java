@@ -43,7 +43,6 @@ class PersonForm extends Div {
         this.refreshGridRunnable = refreshGridRunnable;
         setClassName("editor-layout");
 
-
         add(createFormLayout());
         add(createButtonLayout());
 
