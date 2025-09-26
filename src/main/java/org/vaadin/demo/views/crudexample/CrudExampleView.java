@@ -21,6 +21,7 @@ public class CrudExampleView extends Div implements BeforeEnterObserver {
 
     static final String SAMPLEPERSON_ID = "samplePersonID";
     static final String SAMPLEPERSON_EDIT_ROUTE_TEMPLATE = "crud-example/%s/edit";
+
     private final PersonGrid grid;
     private final SamplePersonService samplePersonService;
     private final PersonForm form;

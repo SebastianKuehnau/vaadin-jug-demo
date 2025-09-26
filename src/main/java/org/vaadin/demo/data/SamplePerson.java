@@ -3,6 +3,8 @@ package org.vaadin.demo.data;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 
 import java.time.LocalDate;
 
@@ -17,7 +19,8 @@ public class SamplePerson extends AbstractEntity {
     @Email
     private String email;
     private String phone;
-    @NotEmpty
+    @NotNull
+    @Past
     private LocalDate dateOfBirth;
     private String occupation;
     private String role;

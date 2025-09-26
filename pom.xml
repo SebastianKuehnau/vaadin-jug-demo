@@ -1,7 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <!-- Project from https://start.vaadin.com/project/0888edd5-8d56-4acc-9f80-cd0677fda029 -->
     <groupId>org.vaadin.demo</groupId>
@@ -9,19 +6,16 @@
     <name>vaadin-jug-demo</name>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-
     <properties>
         <java.version>21</java.version>
         <vaadin.version>24.9.0</vaadin.version>
         <spring.ai.version>1.0.2</spring.ai.version>
     </properties>
-
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.5.5</version>
     </parent>
-
     <repositories>
         <repository>
             <id>Vaadin Directory</id>
@@ -31,7 +25,6 @@
             </snapshots>
         </repository>
     </repositories>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -50,7 +43,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>com.vaadin</groupId>
@@ -75,18 +67,15 @@
             <artifactId>spinner</artifactId>
             <version>24.1.0</version>
         </dependency>
-
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
@@ -107,7 +96,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>
         <plugins>
@@ -157,7 +145,6 @@
             </plugin>
         </plugins>
     </build>
-
     <profiles>
         <profile>
             <!-- Production mode is activated using -Pproduction -->
@@ -193,7 +180,6 @@
                 </plugins>
             </build>
         </profile>
-
         <profile>
             <id>it</id>
             <build>
@@ -205,6 +191,9 @@
                             <execution>
                                 <id>start-spring-boot</id>
                                 <phase>pre-integration-test</phase>
+                                <configuration>
+                                    <arguments>--vaadin.launch-browser=false</arguments>
+                                </configuration>
                                 <goals>
                                     <goal>start</goal>
                                 </goals>
@@ -218,7 +207,6 @@
                             </execution>
                         </executions>
                     </plugin>
-
                     <!-- Runs the integration tests (*IT) after the server is started -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -239,6 +227,5 @@
                 </plugins>
             </build>
         </profile>
-
     </profiles>
 </project>
