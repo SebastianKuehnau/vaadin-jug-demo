@@ -95,6 +95,7 @@
             <artifactId>vaadin-testbench-junit5</artifactId>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>
@@ -114,21 +115,6 @@
                             <file>${project.basedir}/eclipse-formatter.xml</file>
                         </eclipse>
                     </java>
-                    <!-- Uncomment to format TypeScript files 
-                        <typescript>
-                        <includes>
-                            <include>src/main/frontend/**/*.ts</include>
-                            <include>src/main/frontend/**/*.tsx</include>
-                        </includes>
-                        <excludes>
-                            <exclude>src/main/frontend/generated/**</exclude>
-                        </excludes>
-                        <prettier>
-                            <prettierVersion>3.3.3</prettierVersion>
-                            <configFile>.prettierrc.json</configFile>
-                        </prettier>
-                    </typescript>
-                -->
                 </configuration>
             </plugin>
             <plugin>
@@ -143,9 +129,84 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
     <profiles>
+        <profile>
+            <id>appsecKit</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.vaadin</groupId>
+                    <artifactId>appsec-kit-starter</artifactId>
+                    <version>3.4.1</version>
+                </dependency>
+                <!-- to check real vulnerability -->
+                <dependency>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-core</artifactId>
+                    <version>2.14.1</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.cyclonedx</groupId>
+                        <artifactId>cyclonedx-maven-plugin</artifactId>
+                        <version>2.9.1</version>
+                        <executions>
+                            <execution>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>makeAggregateBom</goal>
+                                </goals>
+                                <configuration>
+                                    <projectType>library</projectType>
+                                    <schemaVersion>1.4</schemaVersion>
+                                    <includeBomSerialNumber>true</includeBomSerialNumber>
+                                    <includeCompileScope>true</includeCompileScope>
+                                    <includeProvidedScope>true</includeProvidedScope>
+                                    <includeRuntimeScope>true</includeRuntimeScope>
+                                    <includeSystemScope>true</includeSystemScope>
+                                    <includeTestScope>false</includeTestScope>
+                                    <includeLicenseText>false</includeLicenseText>
+                                    <outputReactorProjects>true</outputReactorProjects>
+                                    <outputFormat>json</outputFormat>
+                                    <outputName>bom</outputName>
+                                    <outputDirectory>${project.build.outputDirectory}/resources</outputDirectory>
+                                    <verbose>false</verbose>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>3.5.1</version>
+                        <executions>
+                            <execution>
+                                <id>cyclonedx-npm</id>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <phase>generate-resources</phase>
+                                <configuration>
+                                    <executable>npx</executable>
+                                    <arguments>
+                                        <!--suppress UnresolvedMavenProperty -->
+                                        <argument>@cyclonedx/cyclonedx-npm@latest</argument>
+                                        <argument>--output-file</argument>
+                                        <argument>${project.build.outputDirectory}/resources/bom-npm.json</argument>
+                                        <argument>--output-format</argument>
+                                        <argument>JSON</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <!-- Production mode is activated using -Pproduction -->
             <id>production</id>
