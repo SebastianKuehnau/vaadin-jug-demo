@@ -66,6 +66,8 @@ public class MainLayout extends AppLayout {
             }
         });
 
+        nav.getItems().forEach(item -> item.setMatchNested(true));
+
         return nav;
     }
 
