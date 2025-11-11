@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 
 @PageTitle("Asynchronous Slow Grid")
-@Route("slow-grid/async")
+@Route(value = "slow-grid/async")
 public class AsyncSlowGridView extends VerticalLayout {
 
     private final Grid<SamplePerson> grid;

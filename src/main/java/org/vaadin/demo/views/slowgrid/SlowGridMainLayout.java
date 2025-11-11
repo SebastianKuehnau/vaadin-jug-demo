@@ -8,21 +8,11 @@ import org.vaadin.demo.services.SamplePersonService;
 import org.vaadin.demo.views.MainLayout;
 import org.vaadin.lineawesome.LineAwesomeIconUrl;
 
-@PageTitle("Slow-Grid")
 @ParentLayout(MainLayout.class)
-@Layout("slow-grid")
+@Layout("/slow-grid")
 public class SlowGridMainLayout extends VerticalLayout implements RouterLayout {
 
-    private final SamplePersonService samplePersonService;
-
-
-    public SlowGridMainLayout(SamplePersonService samplePersonService) {
-        this.samplePersonService = samplePersonService;
-
-        //this.addClassName("slow-grid-view");
-        //grid.setItems(samplePersonService.slowList());
-        //grid.setSizeFull();
-        //add(grid);
+    public SlowGridMainLayout() {
 
         var tabs = new Tabs();
         tabs.add(new Tab(new RouterLink("basic", SlowGridView.class)));
