@@ -1,10 +1,7 @@
 package org.vaadin.demo.views.crudexample;
 
 import com.vaadin.testbench.BrowserTestBase;
-import com.vaadin.testbench.TestBench;
 import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 /**
  * Base class for all our tests, allowing us to change the applicable driver,
