@@ -1,4 +1,4 @@
-package org.vaadin.demo.views.crudexample;
+package org.vaadin.demo.views.helloworld;
 
 import com.vaadin.flow.component.button.testbench.ButtonElement;
 import com.vaadin.flow.component.notification.testbench.NotificationElement;
@@ -6,6 +6,7 @@ import com.vaadin.flow.component.textfield.testbench.TextFieldElement;
 import com.vaadin.testbench.BrowserTest;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.Keys;
+import org.vaadin.demo.views.AbstractIT;
 
 public class HelloWorldViewIT extends AbstractIT {
 
@@ -53,7 +54,7 @@ public class HelloWorldViewIT extends AbstractIT {
     }
 
     @Override
-    String getViewName() {
+    public String getViewName() {
         return "";
     }
 }

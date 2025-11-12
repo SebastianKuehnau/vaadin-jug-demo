@@ -1,4 +1,4 @@
-package org.vaadin.demo.views.crudexample;
+package org.vaadin.demo.views;
 
 import com.vaadin.testbench.BrowserTestBase;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,5 +27,5 @@ public abstract class AbstractIT extends BrowserTestBase {
         getDriver().get("http://" + getDeploymentHostname() + ":8080/" + getViewName());
     }
 
-    abstract String getViewName();
+    abstract public String getViewName();
 }

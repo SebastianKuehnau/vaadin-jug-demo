@@ -8,6 +8,7 @@ import com.vaadin.flow.component.notification.testbench.NotificationElement;
 import com.vaadin.flow.component.textfield.testbench.TextFieldElement;
 import com.vaadin.testbench.BrowserTest;
 import org.junit.jupiter.api.Assertions;
+import org.vaadin.demo.views.AbstractIT;
 
 import java.time.LocalDate;
 
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CrudExampleViewIT extends AbstractIT {
 
     @Override
-    String getViewName() {
+    public String getViewName() {
         return "crud-example";
     }
 
