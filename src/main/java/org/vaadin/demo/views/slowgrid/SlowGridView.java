@@ -24,6 +24,7 @@ public class SlowGridView extends VerticalLayout {
         grid.setSizeFull();
         add(grid);
 
+        setPadding(false);
         setSizeFull();
     }
 }

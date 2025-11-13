@@ -1,5 +1,9 @@
 package org.vaadin.demo.views.slowgrid;
 
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
@@ -12,6 +16,9 @@ import org.vaadin.lineawesome.LineAwesomeIconUrl;
 @Layout("/slow-grid")
 public class SlowGridMainLayout extends VerticalLayout implements RouterLayout {
 
+    private Button counterButton;
+    private Integer counter = 0;
+
     public SlowGridMainLayout() {
 
         var tabs = new Tabs();
@@ -19,6 +26,11 @@ public class SlowGridMainLayout extends VerticalLayout implements RouterLayout {
         tabs.add(new Tab(new RouterLink("async", AsyncSlowGridView.class)));
 
         add(tabs);
+
+        counterButton = new Button("Count: 0",
+                event -> this.counterButton.setText("Count: " + this.counter++));
+
+        add(counterButton);
         setSizeFull();
     }
 }

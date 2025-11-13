@@ -27,6 +27,7 @@ public class AsyncSlowGridView extends VerticalLayout {
         grid.setSizeFull();
         add(grid);
 
+        setPadding(false);
         setSizeFull();
     }
 
