@@ -1,0 +1,11 @@
+.slow-grid-view dile-spinner {
+    --dile-spinner-dot-size: 8px;
+}
+
+.slow-grid-view.spinner-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}

@@ -15,8 +15,8 @@
 .data-grid-view vaadin-grid img {
   border-radius: 50%;
   flex-shrink: 0;
-  height: var(--lumo-size-m);
-  width: var(--lumo-size-m);
+  height: 2.25rem;
+  width: 2.25rem;
 }
 .data-grid-view .name {
   overflow: hidden;

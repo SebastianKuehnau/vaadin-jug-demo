@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   align-items: end;
-  gap: 0 var(--lumo-space-l);
+  gap: 0 var(--vaadin-gap-l);
 }
 
 .gridwith-filters-view .filter-layout .double-width {
@@ -32,16 +32,16 @@
 }
 
 .gridwith-filters-view .mobile-filters span {
-  font-size: var(--lumo-font-size-m);
+  font-size: var(--aura-font-size-m);
   font-weight: 500;
 }
 
 @media screen and (max-width: 800px) {
   .gridwith-filters-view .filter-layout {
     display: none;
-    gap: var(--lumo-space-m);
-    padding-left: var(--lumo-space-m);
-    padding-right: var(--lumo-space-m);
+    gap: var(--vaadin-gap-m);
+    padding-left: var(--vaadin-padding-m);
+    padding-right: var(--vaadin-padding-m);
   }
 
   .gridwith-filters-view .filter-layout.visible {
@@ -57,7 +57,7 @@
   .gridwith-filters-view .mobile-filters {
     display: flex;
     cursor: pointer;
-    color: var(--lumo-secondary-text-color);
+    color: var(--vaadin-text-color-secondary);
   }
 
   .gridwith-filters-view .mobile-filters:hover::before {
@@ -72,6 +72,6 @@
   }
 
   .gridwith-filters-view .mobile-filters:hover {
-    color: var(--lumo-body-text-color);
+    color: var(--vaadin-text-color);
   }
 }

@@ -21,22 +21,22 @@
 
 .crud-example-view .editor {
   flex-grow: 1;
-  padding: var(--lumo-space-l);
+  padding: var(--vaadin-padding-l);
 }
 
 .crud-example-view .editor vaadin-checkbox {
-  padding-top: var(--lumo-space-m);
+  padding-top: var(--vaadin-padding-m);
 }
 
 .crud-example-view .button-layout {
   width: 100%;
   flex-wrap: wrap;
-  background-color: var(--lumo-contrast-5pct);
-  padding-bottom: var(--lumo-space-s);
-  padding-top: var(--lumo-space-s);
-  padding-left: var(--lumo-space-l);
-  padding-right: var(--lumo-space-l);
-  gap: var(--lumo-space-m);
+  background-color: var(--vaadin-background-container);
+  padding-bottom: var(--vaadin-padding-s);
+  padding-top: var(--vaadin-padding-s);
+  padding-left: var(--vaadin-padding-l);
+  padding-right: var(--vaadin-padding-l);
+  gap: var(--vaadin-gap-m);
 }
 
 .crud-example-view .grid-wrapper {

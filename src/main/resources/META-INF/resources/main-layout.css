@@ -1,5 +1,5 @@
 vaadin-scroller[slot="drawer"] {
-  padding: var(--lumo-space-s);
+  padding: var(--vaadin-padding-s);
 }
 
 vaadin-side-nav-item vaadin-icon {
@@ -9,9 +9,9 @@ vaadin-side-nav-item vaadin-icon {
 [slot="drawer"]:is(header, footer) {
   display: flex;
   align-items: center;
-  gap: var(--lumo-space-s);
-  padding: var(--lumo-space-s) var(--lumo-space-m);
-  min-height: var(--lumo-size-xl);
+  gap: var(--vaadin-gap-s);
+  padding: var(--vaadin-padding-s) var(--vaadin-padding-m);
+  min-height: 3.5rem;
   box-sizing: border-box;
 }
 
