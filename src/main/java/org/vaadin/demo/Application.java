@@ -1,25 +1,26 @@
 package org.vaadin.demo;
 
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.component.page.Push;
-import com.vaadin.flow.theme.Theme;
 import javax.sql.DataSource;
+
+import com.vaadin.flow.theme.aura.Aura;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.sql.init.SqlDataSourceScriptDatabaseInitializer;
-import org.springframework.boot.autoconfigure.sql.init.SqlInitializationProperties;
+import org.springframework.boot.jdbc.autoconfigure.ApplicationDataSourceScriptDatabaseInitializer;
+import org.springframework.boot.sql.autoconfigure.init.SqlInitializationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.vaadin.demo.data.SamplePersonRepository;
 
 /**
  * The entry point of the Spring Boot application.
- *
- * Use the @PWA annotation make the application installable on phones, tablets
- * and some desktop browsers.
- *
  */
 @SpringBootApplication
-@Theme(value = "vaadin-jug-demo")
+@EnableConfigurationProperties(SqlInitializationProperties.class)
+@StyleSheet(Aura.STYLESHEET)
+@StyleSheet("styles.css")
 @Push
 public class Application implements AppShellConfigurator {
 
@@ -27,16 +28,14 @@ public class Application implements AppShellConfigurator {
         SpringApplication.run(Application.class, args);
     }
     @Bean
-    SqlDataSourceScriptDatabaseInitializer dataSourceScriptDatabaseInitializer(DataSource dataSource,
-            SqlInitializationProperties properties, SamplePersonRepository repository) {
-        // This bean ensures the database is only initialized when empty
-        return new SqlDataSourceScriptDatabaseInitializer(dataSource, properties) {
+    ApplicationDataSourceScriptDatabaseInitializer customInitializer(DataSource dataSource,
+                                                                     SqlInitializationProperties properties,
+                                                                     SamplePersonRepository repository) {
+        // Only run schema.sql/data.sql when the DB is empty
+        return new ApplicationDataSourceScriptDatabaseInitializer(dataSource, properties) {
             @Override
             public boolean initializeDatabase() {
-                if (repository.count() == 0L) {
-                    return super.initializeDatabase();
-                }
-                return false;
+                return (repository.count() == 0L) && super.initializeDatabase();
             }
         };
     }
