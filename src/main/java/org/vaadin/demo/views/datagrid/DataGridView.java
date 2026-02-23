@@ -7,11 +7,10 @@ import com.vaadin.flow.component.grid.Grid.SelectionMode;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.grid.HeaderRow;
 import com.vaadin.flow.component.grid.dataview.GridListDataView;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.LocalDateRenderer;
@@ -33,7 +32,7 @@ import java.util.Locale;
 @PageTitle("Data Grid")
 @Route("data-grid")
 @Menu(order = 4, icon = LineAwesomeIconUrl.TH_SOLID)
-public class DataGridView extends Div {
+public class DataGridView extends VerticalLayout {
 
     private Grid<Client> grid;
     private GridListDataView<Client> gridListDataView;

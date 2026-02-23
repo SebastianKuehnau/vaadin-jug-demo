@@ -15,7 +15,6 @@ import com.vaadin.flow.component.tabs.Tabs.Orientation;
 import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.theme.lumo.LumoUtility.*;
 import org.vaadin.lineawesome.LineAwesomeIconUrl;
 
 import java.util.UUID;
@@ -78,7 +77,9 @@ public class ChatView extends HorizontalLayout {
     private Tabs tabs;
 
     public ChatView() {
-        addClassNames("chat-view", Width.FULL, Display.FLEX, Flex.AUTO);
+        addClassName("chat-view");
+        setWidthFull();
+        getStyle().set("display", "flex").set("flex", "1 1 auto");
         setSpacing(false);
 
         // UserInfo is used by Collaboration Engine and is used to share details
@@ -103,7 +104,7 @@ public class ChatView extends HorizontalLayout {
             tabs.add(createTab(chat));
         }
         tabs.setOrientation(Orientation.VERTICAL);
-        tabs.addClassNames(Flex.GROW, Flex.SHRINK, Overflow.HIDDEN);
+        tabs.getStyle().set("flex-grow", "1").set("flex-shrink", "1").set("overflow", "hidden");
 
         // CollaborationMessageList displays messages that are in a
         // Collaboration Engine topic. You should give in the user details of
@@ -123,19 +124,29 @@ public class ChatView extends HorizontalLayout {
         // Layouting
 
         VerticalLayout chatContainer = new VerticalLayout();
-        chatContainer.addClassNames(Flex.AUTO, Overflow.HIDDEN);
+        chatContainer.getStyle().set("flex", "1 1 auto").set("overflow", "hidden");
 
         Aside side = new Aside();
-        side.addClassNames(Display.FLEX, FlexDirection.COLUMN, Flex.GROW_NONE, Flex.SHRINK_NONE, Background.CONTRAST_5);
+        side.getStyle()
+                .set("display", "flex")
+                .set("flex-direction", "column")
+                .set("flex-grow", "0")
+                .set("flex-shrink", "0")
+                .set("background-color", "var(--vaadin-background-container)");
         side.setWidth("18rem");
         Header header = new Header();
-        header.addClassNames(Display.FLEX, FlexDirection.ROW, Width.FULL, AlignItems.CENTER, Padding.MEDIUM,
-                BoxSizing.BORDER);
+        header.getStyle()
+                .set("display", "flex")
+                .set("flex-direction", "row")
+                .set("width", "100%")
+                .set("align-items", "center")
+                .set("padding", "var(--vaadin-padding-m)")
+                .set("box-sizing", "border-box");
         H3 channels = new H3("Channels");
-        channels.addClassNames(Flex.GROW, Margin.NONE);
+        channels.getStyle().set("flex-grow", "1").set("margin", "0");
         CollaborationAvatarGroup avatarGroup = new CollaborationAvatarGroup(userInfo, "chat");
         avatarGroup.setMaxItemsVisible(4);
-        avatarGroup.addClassNames(Width.AUTO);
+        avatarGroup.getStyle().set("width", "auto");
 
         header.add(channels, avatarGroup);
 
@@ -156,7 +167,7 @@ public class ChatView extends HorizontalLayout {
 
     private ChatTab createTab(ChatInfo chat) {
         ChatTab tab = new ChatTab(chat);
-        tab.addClassNames(JustifyContent.BETWEEN);
+        tab.getStyle().set("justify-content", "space-between");
 
         Span badge = new Span();
         chat.setUnreadBadge(badge);

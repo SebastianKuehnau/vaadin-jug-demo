@@ -17,6 +17,7 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.splitlayout.SplitLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.ValidationException;
@@ -35,7 +36,7 @@ import java.util.UUID;
 @Route("collaborative-crud-example/:samplePersonID?/:action?(edit)")
 @Menu(order = 3, icon = LineAwesomeIconUrl.COLUMNS_SOLID)
 @Uses(Icon.class)
-public class CollaborativeCrudExampleView extends Div implements BeforeEnterObserver {
+public class CollaborativeCrudExampleView extends VerticalLayout implements BeforeEnterObserver {
 
     private final String SAMPLEPERSON_EDIT_ROUTE_TEMPLATE = "collaborative-crud-example/%s/edit";
 
@@ -93,11 +94,11 @@ public class CollaborativeCrudExampleView extends Div implements BeforeEnterObse
         grid.addColumn("occupation").setAutoWidth(true);
         grid.addColumn("role").setAutoWidth(true);
         LitRenderer<SamplePerson> importantRenderer = LitRenderer.<SamplePerson>of(
-                        "<vaadin-icon icon='vaadin:${item.icon}' style='width: var(--lumo-icon-size-s); height: var(--lumo-icon-size-s); color: ${item.color};'></vaadin-icon>")
+                        "<vaadin-icon icon='vaadin:${item.icon}' style='width: var(--vaadin-icon-size); height: var(--vaadin-icon-size); color: ${item.color};'></vaadin-icon>")
                 .withProperty("icon", important -> important.isImportant() ? "check" : "minus").withProperty("color",
                         important -> important.isImportant()
-                                ? "var(--lumo-primary-text-color)"
-                                : "var(--lumo-disabled-text-color)");
+                                ? "var(--aura-accent-text-color)"
+                                : "var(--vaadin-text-color-disabled)");
 
         grid.addColumn(importantRenderer).setHeader("Important").setAutoWidth(true);
 

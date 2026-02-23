@@ -27,15 +27,15 @@ class PersonGrid extends Div {
         grid.addColumn("occupation").setAutoWidth(true);
         grid.addColumn("role").setAutoWidth(true);
         LitRenderer<SamplePerson> importantRenderer = LitRenderer.<SamplePerson>of(
-                        "<vaadin-icon icon='vaadin:${item.icon}' style='width: var(--lumo-icon-size-s); height: var(--lumo-icon-size-s); color: ${item.color};'></vaadin-icon>")
+                        "<vaadin-icon icon='vaadin:${item.icon}' style='width: var(--vaadin-icon-size); height: var(--vaadin-icon-size); color: ${item.color};'></vaadin-icon>")
                 .withProperty("icon", important -> important.isImportant() ? "check" : "minus").withProperty("color",
                         important -> important.isImportant()
-                                ? "var(--lumo-primary-text-color)"
-                                : "var(--lumo-disabled-text-color)");
+                                ? "var(--aura-accent-text-color)"
+                                : "var(--vaadin-text-color-disabled)");
 
         grid.addColumn(importantRenderer).setHeader("Important").setAutoWidth(true);
 
-        grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
+        //grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
 
         // Configure Grid
         grid.setItems(

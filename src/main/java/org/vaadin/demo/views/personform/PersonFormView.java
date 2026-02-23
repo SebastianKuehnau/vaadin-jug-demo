@@ -12,7 +12,6 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 import org.vaadin.lineawesome.LineAwesomeIconUrl;
 
 @PageTitle("Person Form")
@@ -47,15 +46,12 @@ public class PersonFormView extends VerticalLayout {
         formLayout2Col.add(textField4);
 
         HorizontalLayout layoutRow = new HorizontalLayout();
-        layoutRow.addClassName(Gap.MEDIUM);
+        layoutRow.setSpacing(true);
         layoutRow.setWidth("100%");
-        layoutRow.getStyle().set("flex-grow", "1");
 
         Button buttonPrimary = new Button("Save");
         buttonPrimary.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        buttonPrimary.setWidth("min-content");
         Button buttonSecondary = new Button("Cancel");
-        buttonSecondary.setWidth("min-content");
 
         layoutRow.add(buttonPrimary);
         layoutRow.add(buttonSecondary);
