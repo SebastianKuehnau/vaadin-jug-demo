@@ -22,8 +22,8 @@ public class SlowGridMainLayout extends VerticalLayout implements RouterLayout {
     public SlowGridMainLayout() {
 
         var tabs = new Tabs();
-        tabs.add(new Tab(new RouterLink("basic", SlowGridView.class)));
         tabs.add(new Tab(new RouterLink("async", AsyncSlowGridView.class)));
+        tabs.add(new Tab(new RouterLink("basic", SlowGridView.class)));
 
         add(tabs);
 

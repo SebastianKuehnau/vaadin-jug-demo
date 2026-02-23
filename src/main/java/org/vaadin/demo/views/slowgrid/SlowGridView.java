@@ -12,8 +12,6 @@ import org.vaadin.lineawesome.LineAwesomeIconUrl;
 
 @PageTitle("Slow-Grid")
 @Route(value = "slow-grid/basic")
-@RouteAlias(value = "slow-grid")
-@Menu(order = 5, icon = LineAwesomeIconUrl.STOPWATCH_SOLID, title = "Slow-Grid")
 public class SlowGridView extends VerticalLayout {
 
     public SlowGridView(SamplePersonService samplePersonService) {
