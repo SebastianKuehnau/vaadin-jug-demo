@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__vaadin__get_full_document"
+    ]
+  }
+}
