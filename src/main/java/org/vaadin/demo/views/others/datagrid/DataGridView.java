@@ -1,4 +1,4 @@
-package org.vaadin.demo.views.datagrid;
+package org.vaadin.demo.views.others.datagrid;
 
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;

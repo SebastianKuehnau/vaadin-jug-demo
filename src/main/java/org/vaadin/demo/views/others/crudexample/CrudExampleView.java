@@ -1,12 +1,10 @@
-package org.vaadin.demo.views.crudexample;
+package org.vaadin.demo.views.others.crudexample;
 
 import com.vaadin.flow.component.dependency.Uses;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.splitlayout.SplitLayout;
-import com.vaadin.flow.component.splitlayout.SplitLayoutVariant;
 import com.vaadin.flow.router.*;
 import org.vaadin.demo.data.SamplePerson;
 import org.vaadin.demo.services.SamplePersonService;

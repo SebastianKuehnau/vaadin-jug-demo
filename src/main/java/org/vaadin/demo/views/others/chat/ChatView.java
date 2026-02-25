@@ -1,4 +1,4 @@
-package org.vaadin.demo.views.chat;
+package org.vaadin.demo.views.others.chat;
 
 import com.vaadin.collaborationengine.*;
 import com.vaadin.flow.component.AttachEvent;

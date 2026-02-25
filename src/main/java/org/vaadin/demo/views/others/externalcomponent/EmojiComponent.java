@@ -1,4 +1,4 @@
-package org.vaadin.demo.views.externalcomponent;
+package org.vaadin.demo.views.others.externalcomponent;
 
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.dependency.JsModule;

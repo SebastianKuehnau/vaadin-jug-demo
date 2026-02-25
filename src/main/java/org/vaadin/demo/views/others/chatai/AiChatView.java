@@ -1,4 +1,4 @@
-package org.vaadin.demo.views.chatai;
+package org.vaadin.demo.views.others.chatai;
 
 import com.vaadin.flow.component.messages.MessageInput;
 import com.vaadin.flow.component.messages.MessageList;

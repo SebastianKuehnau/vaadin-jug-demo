@@ -1,4 +1,4 @@
-package org.vaadin.demo.views.crudexample;
+package org.vaadin.demo.views.others.crudexample;
 
 import com.vaadin.collaborationengine.CollaborationAvatarGroup;
 import com.vaadin.collaborationengine.CollaborationBinder;

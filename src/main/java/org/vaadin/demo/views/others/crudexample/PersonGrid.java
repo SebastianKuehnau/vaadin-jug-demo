@@ -1,8 +1,7 @@
-package org.vaadin.demo.views.crudexample;
+package org.vaadin.demo.views.others.crudexample;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.data.renderer.LitRenderer;
 import com.vaadin.flow.function.SerializableRunnable;

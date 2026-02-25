@@ -1,4 +1,4 @@
-package org.vaadin.demo.views.slowgrid;
+package org.vaadin.demo.views.others.slowgrid;
 
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;

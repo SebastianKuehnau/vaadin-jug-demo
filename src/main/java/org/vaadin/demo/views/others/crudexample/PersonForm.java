@@ -1,4 +1,4 @@
-package org.vaadin.demo.views.crudexample;
+package org.vaadin.demo.views.others.crudexample;
 
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.UI;

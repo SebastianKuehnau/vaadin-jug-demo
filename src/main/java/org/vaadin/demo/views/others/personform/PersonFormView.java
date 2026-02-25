@@ -1,4 +1,4 @@
-package org.vaadin.demo.views.personform;
+package org.vaadin.demo.views.others.personform;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
