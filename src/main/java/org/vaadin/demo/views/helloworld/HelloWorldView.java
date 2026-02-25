@@ -8,7 +8,6 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import org.vaadin.demo.views.slowgrid.DileSpinner;
 import org.vaadin.lineawesome.LineAwesomeIconUrl;
 
 @PageTitle("Hello World")
@@ -32,5 +31,4 @@ public class HelloWorldView extends HorizontalLayout {
 
         add(name, sayHello);
     }
-
 }

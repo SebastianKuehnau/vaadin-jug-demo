@@ -16,6 +16,8 @@ import com.vaadin.flow.router.Layout;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.server.menu.MenuConfiguration;
 import com.vaadin.flow.server.menu.MenuEntry;
+import org.vaadin.lineawesome.LineAwesomeIconUrl;
+
 import java.util.List;
 
 /**
@@ -56,16 +58,25 @@ public class MainLayout extends AppLayout implements AfterNavigationObserver {
     }
 
     private SideNav createNavigation() {
-        SideNav nav = new SideNav();
+        var nav = new SideNav();
+
+        var otherMenu = new SideNavItem("Other Examples");
+        otherMenu.setExpanded(false);
+        otherMenu.setPrefixComponent(new SvgIcon(LineAwesomeIconUrl.TH_LARGE_SOLID));
 
         List<MenuEntry> menuEntries = MenuConfiguration.getMenuEntries();
         menuEntries.forEach(entry -> {
-            if (entry.icon() != null) {
-                nav.addItem(new SideNavItem(entry.title(), entry.path(), new SvgIcon(entry.icon())));
-            } else {
-                nav.addItem(new SideNavItem(entry.title(), entry.path()));
-            }
-        });
+                    var menu = List.of("", "person-management", "person-rest-service", "persons-dashboard")
+                            .contains(entry.path().replace("/", "")) ? nav : otherMenu;
+
+                    if (entry.icon() != null) {
+                        menu.addItem(new SideNavItem(entry.title(), entry.path(), new SvgIcon(entry.icon())));
+                    } else {
+                        menu.addItem(new SideNavItem(entry.title(), entry.path()));
+                    }
+                });
+
+        nav.addItem(otherMenu);
 
         nav.getItems().forEach(item -> item.setMatchNested(true));
 
