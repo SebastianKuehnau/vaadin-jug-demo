@@ -5,6 +5,7 @@ import com.vaadin.flow.component.charts.model.*;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Menu;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.springframework.data.domain.Pageable;
 import org.vaadin.demo.data.SamplePerson;
@@ -21,6 +22,7 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 @Route("persons-dashboard")
+@PageTitle( "Person Dashboard")
 @Menu(order = 2, icon = LineAwesomeIconUrl.CHART_BAR_SOLID)
 public class PersonsDashboardView extends VerticalLayout {
 
@@ -73,6 +75,10 @@ public class PersonsDashboardView extends VerticalLayout {
 
         conf.getLegend().setEnabled(false);
 
+        var plotOptions = new PlotOptionsBar();
+        plotOptions.setColorByPoint(true);
+        conf.setPlotOptions(plotOptions);
+
         var series = new DataSeries("Skills");
         sorted.forEach((name, count) -> series.add(new DataSeriesItem(name, count)));
         conf.addSeries(series);
@@ -110,6 +116,10 @@ public class PersonsDashboardView extends VerticalLayout {
         conf.addyAxis(y);
 
         conf.getLegend().setEnabled(false);
+
+        var plotOptions = new PlotOptionsColumn();
+        plotOptions.setColorByPoint(true);
+        conf.setPlotOptions(plotOptions);
 
         var series = new ListSeries("Persons",
                 cohorts.values().stream().map(Long::intValue).collect(Collectors.toList()));
