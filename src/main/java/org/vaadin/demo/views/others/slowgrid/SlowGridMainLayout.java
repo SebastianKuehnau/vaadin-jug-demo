@@ -1,17 +1,13 @@
 package org.vaadin.demo.views.others.slowgrid;
 
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.*;
-import org.vaadin.demo.services.SamplePersonService;
 import org.vaadin.demo.views.MainLayout;
-import org.vaadin.lineawesome.LineAwesomeIconUrl;
 
+@PageTitle("Slow Grids")
 @ParentLayout(MainLayout.class)
 @Layout("/slow-grid")
 public class SlowGridMainLayout extends VerticalLayout implements RouterLayout {

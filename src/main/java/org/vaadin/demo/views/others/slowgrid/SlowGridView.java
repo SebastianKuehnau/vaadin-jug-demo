@@ -2,16 +2,13 @@ package org.vaadin.demo.views.others.slowgrid;
 
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteAlias;
 import org.vaadin.demo.data.SamplePerson;
 import org.vaadin.demo.services.SamplePersonService;
-import org.vaadin.lineawesome.LineAwesomeIconUrl;
 
 @PageTitle("Slow-Grid")
-@Route(value = "slow-grid/basic")
+@Route(value = "slow-grid/basic" , layout = SlowGridMainLayout.class)
 public class SlowGridView extends VerticalLayout {
 
     public SlowGridView(SamplePersonService samplePersonService) {
@@ -19,8 +16,7 @@ public class SlowGridView extends VerticalLayout {
 
         var grid = new Grid<>(SamplePerson.class);
         grid.setItems(samplePersonService.slowList());
-        grid.setSizeFull();
-        add(grid);
+        addAndExpand(grid);
 
         setPadding(false);
         setSizeFull();

@@ -8,7 +8,6 @@ import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
-import org.vaadin.addons.componentfactory.spinner.Spinner;
 import org.vaadin.demo.data.SamplePerson;
 import org.vaadin.demo.services.SamplePersonService;
 import org.vaadin.lineawesome.LineAwesomeIconUrl;
@@ -17,10 +16,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 
 @PageTitle("Asynchronous Slow Grid")
-@Route(value = "slow-grid/async")
-@RouteAlias(value = "slow-grid")
+@Route(value = "slow-grid/async", layout = SlowGridMainLayout.class)
+@RouteAlias(value = "slow-grid", layout = SlowGridMainLayout.class)
 @Menu(order = 5, icon = LineAwesomeIconUrl.STOPWATCH_SOLID, title = "Slow-Grid")
-public class AsyncSlowGridView extends Div {
+public class AsyncSlowGridView extends VerticalLayout {
 
     private final Grid<SamplePerson> grid;
     private final SamplePersonService samplePersonService;
@@ -30,11 +29,10 @@ public class AsyncSlowGridView extends Div {
         this.addClassName("slow-grid-view");
 
         grid = new Grid<>(SamplePerson.class);
-        grid.setSizeFull();
-        add(grid);
+        addAndExpand(grid);
 
-//        setPadding(false);
         setSizeFull();
+        setPadding(false);
     }
 
     @Override
