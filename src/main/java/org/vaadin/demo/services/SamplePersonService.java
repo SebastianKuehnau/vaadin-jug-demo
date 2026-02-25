@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Service;
 import org.vaadin.demo.data.SamplePerson;
 import org.vaadin.demo.data.SamplePersonRepository;
@@ -14,7 +15,7 @@ import org.vaadin.demo.data.SamplePersonRepository;
 @Service
 public class SamplePersonService {
 
-    public static final int TIMEOUT = 5;
+    public static final int DELAY_TIMEOUT = 10;
     private final SamplePersonRepository repository;
 
     public SamplePersonService(SamplePersonRepository repository) {
@@ -48,7 +49,7 @@ public class SamplePersonService {
 
     private void delay() {
         try {
-            TimeUnit.SECONDS.sleep(TIMEOUT);
+            TimeUnit.SECONDS.sleep(DELAY_TIMEOUT);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
