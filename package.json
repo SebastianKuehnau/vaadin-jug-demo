@@ -6,6 +6,7 @@
     "@vaadin/aura": "25.0.3",
     "@vaadin/common-frontend": "0.0.19",
     "@vaadin/react-components": "25.0.3",
+    "@vaadin/react-components-pro": "25.0.3",
     "@vaadin/vaadin-development-mode-detector": "2.0.7",
     "@vaadin/vaadin-lumo-styles": "25.0.3",
     "@vaadin/vaadin-themable-mixin": "25.0.3",
@@ -14,6 +15,8 @@
     "dile-spinner": "2.0.1",
     "emoji-picker-element": "^1.26.3",
     "lit": "3.3.2",
+    "ol": "10.6.1",
+    "proj4": "2.17.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-router": "7.12.0"
@@ -110,13 +113,24 @@
     "emoji-picker-element": "$emoji-picker-element",
     "@vaadin/vaadin-themable-mixin": "$@vaadin/vaadin-themable-mixin",
     "@vaadin/vaadin-lumo-styles": "$@vaadin/vaadin-lumo-styles",
-    "@vaadin/aura": "$@vaadin/aura"
+    "@vaadin/aura": "$@vaadin/aura",
+    "@vaadin/board": "25.0.3",
+    "@vaadin/charts": "25.0.3",
+    "@vaadin/crud": "25.0.3",
+    "@vaadin/dashboard": "25.0.3",
+    "@vaadin/grid-pro": "25.0.3",
+    "@vaadin/map": "25.0.3",
+    "@vaadin/rich-text-editor": "25.0.3",
+    "@vaadin/react-components-pro": "$@vaadin/react-components-pro",
+    "proj4": "$proj4",
+    "ol": "$ol"
   },
   "vaadin": {
     "dependencies": {
       "@vaadin/aura": "25.0.3",
       "@vaadin/common-frontend": "0.0.19",
       "@vaadin/react-components": "25.0.3",
+      "@vaadin/react-components-pro": "25.0.3",
       "@vaadin/vaadin-development-mode-detector": "2.0.7",
       "@vaadin/vaadin-lumo-styles": "25.0.3",
       "@vaadin/vaadin-themable-mixin": "25.0.3",
@@ -125,6 +139,8 @@
       "dile-spinner": "2.0.1",
       "emoji-picker-element": "^1.26.3",
       "lit": "3.3.2",
+      "ol": "10.6.1",
+      "proj4": "2.17.0",
       "react": "19.2.3",
       "react-dom": "19.2.3",
       "react-router": "7.12.0"
@@ -148,6 +164,6 @@
       "vite-plugin-checker": "0.12.0",
       "workbox-build": "7.4.0"
     },
-    "hash": "6447445ae987c5bc9ddc4665321af0957231224ea8a0dff4b05d8b0e61fd8453"
+    "hash": "87667b187f2275885862bd7fec99ad5618d0c7acda04b75c6697334716da0b72"
   }
 }
