@@ -1,5 +1,6 @@
 vaadin-scroller[slot="drawer"] {
   padding: var(--vaadin-padding-s);
+  width: 280px;
 }
 
 vaadin-side-nav-item vaadin-icon {
