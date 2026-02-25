@@ -1,4 +1,4 @@
-package org.vaadin.demo.views.others.crudexample;
+package org.vaadin.demo.views.crudexample;
 
 import com.vaadin.flow.function.SerializableRunnable;
 import org.springframework.stereotype.Component;

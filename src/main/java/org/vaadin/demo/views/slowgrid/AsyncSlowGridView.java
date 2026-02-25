@@ -1,4 +1,4 @@
-package org.vaadin.demo.views.others.slowgrid;
+package org.vaadin.demo.views.slowgrid;
 
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.grid.Grid;

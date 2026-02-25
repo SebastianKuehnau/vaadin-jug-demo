@@ -1,4 +1,4 @@
-package org.vaadin.demo.views.others.crudexample;
+package org.vaadin.demo.views.crudexample;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.grid.Grid;

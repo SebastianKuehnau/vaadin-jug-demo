@@ -1,4 +1,4 @@
-package org.vaadin.demo.views.others.datagrid;
+package org.vaadin.demo.views.datagrid;
 
 public class Client {
 
