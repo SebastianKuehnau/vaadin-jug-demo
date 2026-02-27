@@ -18,17 +18,11 @@ import java.util.stream.Collectors;
 public class RestPersonView extends VerticalLayout {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    record PersonDto(Long id, String firstName, String lastName, String email,
-                     String phone, LocalDate dateOfBirth, String occupation,
-                     String role, boolean important, List<SkillDto> skills) {
-    }
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    record SkillDto(String name) {
+    public record PersonDto(String firstName, String lastName, String email,
+                     String phone, LocalDate dateOfBirth) {
     }
 
     public RestPersonView(RestClient.Builder restClientBuilder) {
-        setSizeFull();
 
         var restClient = restClientBuilder.baseUrl("http://localhost:8080").build();
 
@@ -37,20 +31,10 @@ public class RestPersonView extends VerticalLayout {
                 .retrieve()
                 .body(new ParameterizedTypeReference<List<PersonDto>>() {});
 
-        var grid = new Grid<>(PersonDto.class, false);
-        grid.addColumn(PersonDto::firstName).setHeader("First Name");
-        grid.addColumn(PersonDto::lastName).setHeader("Last Name");
-        grid.addColumn(PersonDto::email).setHeader("Email");
-        grid.addColumn(PersonDto::phone).setHeader("Phone");
-        grid.addColumn(PersonDto::occupation).setHeader("Occupation");
-        grid.addColumn(PersonDto::role).setHeader("Role");
-        grid.addColumn(dto -> dto.skills() != null
-                        ? dto.skills().stream().map(SkillDto::name).collect(Collectors.joining(", "))
-                        : "")
-                .setHeader("Skills");
-
+        var grid = new Grid<>(PersonDto.class);
         grid.setItems(persons);
 
         add(grid);
+        setSizeFull();
     }
 }
