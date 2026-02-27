@@ -198,4 +198,4 @@ public class DataGridView extends VerticalLayout {
 
         return c;
     }
-};
+}
