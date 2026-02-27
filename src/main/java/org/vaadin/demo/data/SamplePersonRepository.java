@@ -12,9 +12,9 @@ public interface SamplePersonRepository
             JpaRepository<SamplePerson, Long>,
             JpaSpecificationExecutor<SamplePerson> {
 
-    @EntityGraph(attributePaths = "skills")
+//    @EntityGraph(attributePaths = "skills")
     Page<SamplePerson> findAll(Specification<SamplePerson> spec, Pageable pageable);
 
-    @EntityGraph(attributePaths = "skills")
+//    @EntityGraph(attributePaths = "skills")
     Page<SamplePerson> findAll(Pageable pageable);
 }

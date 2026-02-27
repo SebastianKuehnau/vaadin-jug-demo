@@ -1,25 +1,30 @@
 package org.vaadin.demo.services;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Service;
+import org.vaadin.demo.data.OfficeLocation;
+import org.vaadin.demo.data.OfficeLocationRepository;
 import org.vaadin.demo.data.SamplePerson;
 import org.vaadin.demo.data.SamplePersonRepository;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Service
 public class SamplePersonService {
 
     public static final int DELAY_TIMEOUT = 10;
     private final SamplePersonRepository repository;
+    private final OfficeLocationRepository officeLocationRepository;
 
-    public SamplePersonService(SamplePersonRepository repository) {
+    public SamplePersonService(SamplePersonRepository repository, OfficeLocationRepository officeLocationRepository) {
         this.repository = repository;
+        this.officeLocationRepository = officeLocationRepository;
     }
 
     public Optional<SamplePerson> get(Long id) {
@@ -59,4 +64,16 @@ public class SamplePersonService {
         return (int) repository.count();
     }
 
+    public List<OfficeLocation> findAllOfficeLocations() {
+        return officeLocationRepository.findAll();
+    }
+
+    public Map<Long, Long> getOfficeLocationCounts(Specification<SamplePerson> filter) {
+        List<SamplePerson> persons = repository.findAll(filter);
+        return persons.stream()
+                .filter(p -> p.getOfficeLocation() != null)
+                .collect(Collectors.groupingBy(
+                        p -> p.getOfficeLocation().getId(),
+                        Collectors.counting()));
+    }
 }

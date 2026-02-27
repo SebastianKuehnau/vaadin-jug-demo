@@ -1,19 +1,16 @@
 package org.vaadin.demo.data;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -34,10 +31,12 @@ public class SamplePerson extends AbstractEntity {
     private String role;
     private boolean important;
 
-    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-//    @Fetch(FetchMode.SUBSELECT)
-//    @BatchSize(size = 100)
-    private List<Skill> skills ;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable
+    private List<Skill> skills;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private OfficeLocation officeLocation;
 
     public List<Skill> getSkills() {
         return skills;
@@ -45,6 +44,14 @@ public class SamplePerson extends AbstractEntity {
 
     public void setSkills(List<Skill> skills) {
         this.skills = skills;
+    }
+
+    public OfficeLocation getOfficeLocation() {
+        return officeLocation;
+    }
+
+    public void setOfficeLocation(OfficeLocation officeLocation) {
+        this.officeLocation = officeLocation;
     }
 
     public String getFirstName() {

@@ -3,6 +3,7 @@ package org.vaadin.demo.views.personlist;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.checkbox.Checkbox;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.combobox.MultiSelectComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
@@ -14,12 +15,15 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.ValidationException;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
+import org.vaadin.demo.data.OfficeLocation;
+import org.vaadin.demo.data.OfficeLocationRepository;
 import org.vaadin.demo.data.Skill;
 import org.vaadin.demo.data.SkillRepository;
 import org.vaadin.demo.data.SamplePerson;
 import org.vaadin.demo.services.SamplePersonService;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,6 +38,7 @@ class PersonEditForm extends VerticalLayout {
     private final TextField role = new TextField("Role");
     private final Checkbox important = new Checkbox("Important");
     private final MultiSelectComboBox<String> skillsComboBox = new MultiSelectComboBox<>("Skills");
+    private final ComboBox<OfficeLocation> officeLocation = new ComboBox<>("Office Location");
 
     private final BeanValidationBinder<SamplePerson> binder = new BeanValidationBinder<>(SamplePerson.class);
     private final SamplePersonService service;
@@ -41,18 +46,23 @@ class PersonEditForm extends VerticalLayout {
     private final Runnable onChangeCallback;
     private SamplePerson currentPerson;
 
-    PersonEditForm(SamplePersonService service, SkillRepository skillRepository, Runnable onChangeCallback) {
+    PersonEditForm(SamplePersonService service, SkillRepository skillRepository,
+                   OfficeLocationRepository officeLocationRepository, Runnable onChangeCallback) {
         this.service = service;
         this.skillRepository = skillRepository;
         this.onChangeCallback = onChangeCallback;
         setPadding(true);
         setSpacing(true);
+        getStyle().set("overflow-y", "auto");
 
         skillsComboBox.setItems(skillRepository.findDistinctNames());
 
+        officeLocation.setItems(officeLocationRepository.findAll());
+        officeLocation.setItemLabelGenerator(OfficeLocation::getName);
+
         var formLayout = new FormLayout(
                 firstName, lastName, email, phone, dateOfBirth,
-                occupation, role, important, skillsComboBox);
+                occupation, role, important, officeLocation, skillsComboBox);
 
         var save = new Button("Save");
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
@@ -113,28 +123,17 @@ class PersonEditForm extends VerticalLayout {
 
     private void syncSkills() {
         Set<String> selectedNames = skillsComboBox.getValue();
-        var existingSkills = currentPerson.getSkills();
-        if (existingSkills == null) {
-            existingSkills = new ArrayList<>();
-        }
+        Map<String, Skill> allSkillsByName = skillRepository.findAllOrdered().stream()
+                .collect(Collectors.toMap(Skill::getName, s -> s, (a, b) -> a));
 
-        // Remove skills no longer selected
-        existingSkills.removeIf(s -> !selectedNames.contains(s.getName()));
-
-        // Add new skills
-        Set<String> existingNames = existingSkills.stream()
-                .map(Skill::getName)
-                .collect(Collectors.toSet());
+        var resolvedSkills = new ArrayList<Skill>();
         for (String name : selectedNames) {
-            if (!existingNames.contains(name)) {
-                var skill = new Skill();
-                skill.setName(name);
-                skill.setPerson(currentPerson);
-                existingSkills.add(skill);
+            Skill skill = allSkillsByName.get(name);
+            if (skill != null) {
+                resolvedSkills.add(skill);
             }
         }
-
-        currentPerson.setSkills(existingSkills);
+        currentPerson.setSkills(resolvedSkills);
     }
 
     private void delete() {
