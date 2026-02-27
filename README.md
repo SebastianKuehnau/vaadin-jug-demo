@@ -1,7 +1,3 @@
-Here’s a polished version of your README with clearer structure, improved grammar, and a more presentation-friendly style while keeping it concise and developer-focused:
-
----
-
 # vaadin-jug-demo
 
 A demo-friendly **Vaadin + Spring Boot** app to showcase how you can build modern, reactive UIs in pure Java.
@@ -9,50 +5,54 @@ Run it locally, explore the examples, and use it as a starting point for your ow
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 * **Java 21**
-* **Spring Boot**
-* **Vaadin Flow**
-* **Spring AI** (with OpenAI integration)
-* **Spring Data JPA**
+* **Spring Boot 4.0.2**
+* **Vaadin 25.0** (Flow / server-side Java UI)
+* **Spring AI 2.0** (OpenAI integration)
+* **Spring Data JPA** with H2 in-memory database
+* **Vaadin Collaboration Engine** for real-time multi-user features
+* **Vaadin TestBench** (JUnit 5 + Selenium) for browser-based integration tests
 * **Maven 3.8.4+** (Maven Wrapper included)
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
-* JDK 17+ (recommended: 21)
+* JDK 21+
 * Internet access (for frontend dependencies & AI calls)
-* Maven not required globally → use included `./mvnw`
-* Temporary requirement: a valid **OpenAI API key**
+* Maven not required globally — use included `./mvnw`
+* A valid **OpenAI API key** (for AI chat features)
 
-> ℹ️ Vaadin automatically manages frontend tooling during dev builds.
+> Vaadin automatically manages frontend tooling during dev builds.
 
 ---
 
 ### 1. Configure AI Access
 
-This project uses **Spring AI**. You need to provide credentials for your chosen AI provider.
+This project uses **Spring AI**. Provide your OpenAI key as environment variable:
 
-Add the properties in `src/main/resources/application.properties` or as environment variables.
+```bash
+export OPENAI_API_KEY=sk-...
+```
 
-Example (OpenAI):
+Or in `src/main/resources/application.properties`:
 
 ```properties
 spring.ai.openai.api-key=${OPENAI_API_KEY}
 ```
 
-👉 For setup instructions, see the [Vaadin AI docs](https://vaadin.com/docs/latest/building-apps/ai/technical-setup).
+See the [Vaadin AI docs](https://vaadin.com/docs/latest/building-apps/ai/technical-setup) for setup instructions.
 
 ---
 
-### 2. Run in Dev Mode in Terminal
+### 2. Run in Dev Mode
 
 ```bash
-./mvnw spring-boot:run
+./mvnw
 ```
 
 Then open: [http://localhost:8080](http://localhost:8080)
@@ -61,13 +61,13 @@ Then open: [http://localhost:8080](http://localhost:8080)
 
 ---
 
-### 3. Run from IDE (recommended)
+### 3. Run from IDE
 
 * Import as **Maven** project
 * Configure OpenAI API key ([docs](https://vaadin.com/docs/latest/building-apps/ai/technical-setup/ide))
 * Run `Application.java` (Spring Boot main class)
 
-💡 Tip: Use **Hotswap Agent** to instantly see code changes in your browser.
+Tip: Use **Hotswap Agent** to instantly see code changes in your browser.
 
 ---
 
@@ -80,48 +80,105 @@ java -jar target/*.jar
 
 ---
 
-## 📖 What’s Inside
+## What's Inside
 
-Prebuilt views to showcase Vaadin features:
+### Main Views
 
-* **Hello World** – simplest demo view
-* **Person Form** – edit a sample entity
-* **CRUD Example** – grid + form (with `SamplePerson`)
-* **Collaborative CRUD** – concurrent user updates with CE
-* **Data Grid** – filtering, column rendering
-* **Slow Grid** – async data loading
-* **Chat** – messaging between users
-* **AI Chat** – chat with an AI provider, streamed as markdown
-* **AI Integration** – real-world usage examples
+| View | Route | Description |
+|------|-------|-------------|
+| **Hello World** | `/` | Simple greeting form with notification |
+| **Person Management** | `/person-management` | CRUD grid with filter, office location map with colored markers, edit form with skills and office assignment |
+| **Person Dashboard** | `/persons-dashboard` | Charts for team skills, age distribution, and role distribution |
+| **Person REST Service** | `/person-rest-service` | Grid displaying persons fetched from REST API (`/api/persons`) |
+
+### More Examples (under "Others" submenu)
+
+| View | Route | Description |
+|------|-------|-------------|
+| **Person Form** | `/person-form` | Basic form layout with personal information fields |
+| **CRUD Example** | `/crud-example` | Standard split-layout CRUD with URL-based routing |
+| **Collaborative CRUD** | `/collaborative-crud-example` | Real-time multi-user editing with Collaboration Engine |
+| **Data Grid** | `/data-grid` | Advanced grid with filterable columns and custom renderers |
+| **Slow Grid** | `/slow-grid` | Async data loading with spinner (demonstrates async patterns) |
+| **External Component** | `/external-component` | Third-party Web Component integration |
+| **Chat** | `/chat` | Real-time multi-channel chat with Collaboration Engine |
+| **AI Chat** | `/chat-ai` | Chat with OpenAI, streamed as markdown |
+| **AI Chat & Context** | `/chat-ai-with-context` | AI chat with tool support for conference talks context |
+
+---
+
+## Data Model
+
+```
+SamplePerson ──@ManyToMany──▷ Skill
+     │                         (Java, Python, TypeScript, Spring,
+     │                          Docker, Kubernetes, AWS, REST,
+     @ManyToOne                 Kafka, Git, Vaadin)
+     │
+     ▼
+OfficeLocation
+  (15 offices worldwide: Zurich, London, Berlin,
+   San Francisco, Tokyo, Paris, Seattle, Sydney,
+   Mumbai, Montreal, Madrid, Beijing, Turku,
+   Johannesburg, Athens)
+```
+
+The H2 database is initialized with **1000 sample persons**, each assigned to an office location and 1-4 skills. Initialization only runs when the database is empty.
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
-src/main/java
- ├─ Application.java        # Spring Boot entry point
- ├─ views/MainView.java     # Base layout (menu + header)
- ├─ views/...               # Vaadin views (UI components)
- ├─ services/...            # Business logic & AI services
- └─ data/...                # Entities & JPA repositories
+src/main/java/org/vaadin/demo/
+ ├─ Application.java              # Spring Boot entry point (@Push, DB init)
+ ├─ data/                         # JPA entities & repositories
+ │   ├─ AbstractEntity.java       #   Base entity (ID, version)
+ │   ├─ SamplePerson.java         #   Person entity
+ │   ├─ Skill.java                #   Skill entity
+ │   ├─ OfficeLocation.java       #   Office location with coordinates
+ │   ├─ Talk.java                 #   Conference talk (in-memory POJO)
+ │   └─ *Repository.java          #   Spring Data repositories
+ ├─ services/
+ │   └─ SamplePersonService.java  # Business logic for persons & offices
+ └─ views/
+     ├─ MainLayout.java           # Root AppLayout with drawer navigation
+     ├─ helloworld/               # Hello World view
+     ├─ personlist/               # Person Management (grid + map + form)
+     ├─ restperson/               # REST service view
+     ├─ dashboard/                # Charts dashboard
+     └─ others/                   # Additional example views
+         ├─ chat/                 #   Chat & AI chat views
+         ├─ crud/                 #   CRUD & collaborative CRUD
+         ├─ datagrid/             #   Data grid with filters
+         ├─ externalcomponent/    #   Web Component integration
+         ├─ personform/           #   Basic person form
+         └─ slowgrid/             #   Async loading demo
 
-src/main/resources
- ├─ application.properties  # Config (AI keys etc.)
- └─ db/...                  # Optional SQL init scripts
-
-src/main/frontend
- └─ themes/vaadin-jug-demo  # Custom theme & assets
+src/main/resources/
+ ├─ application.properties        # Config (port, AI keys, JPA settings)
+ ├─ data.sql                      # Sample data (offices, skills, persons)
+ └─ META-INF/resources/           # Static web resources
+     ├─ styles.css                #   Global stylesheet (imports view CSS)
+     ├─ main-layout.css           #   Drawer and layout styles
+     └─ views/                    #   Per-view stylesheets
+         ├─ crud-example-view.css
+         ├─ gridwith-filters-view.css
+         ├─ chat-view.css
+         ├─ data-grid-view.css
+         └─ slow-grid-view.css
 ```
 
 ---
+
 ## Troubleshooting
 
-change the vaadin.frontend.hotdeploy=false to vaadin.frontend.hotdeploy=true in the application.properties file to enable hot deploy of the frontend code.
+* Set `vaadin.frontend.hotdeploy=true` in `application.properties` to enable hot deploy of frontend code.
+* Run `mvn vaadin:dance` to clean and rebuild the frontend code.
 
-execute the mvn vaadin:dance to clean and rebuild the frontend code.
+---
 
-## 🔗 Useful Links
+## Useful Links
 
 * [Vaadin Docs](https://vaadin.com/docs)
 * [Spring Boot Docs](https://docs.spring.io/spring-boot/docs/current/reference/html/)
