@@ -35,9 +35,9 @@ import java.util.Set;
 public class PersonListView extends VerticalLayout {
 
     private static final String[] MARKER_COLORS = {
-            "#e6194b", "#3cb44b", "#4363d8", "#f58231", "#911eb4",
-            "#42d4f4", "#f032e6", "#bfef45", "#fabed4", "#469990",
-            "#dcbeff", "#9A6324", "#800000", "#aaffc3", "#808000"
+        "#e6194b", "#3cb44b", "#4363d8", "#f58231", "#911eb4",
+        "#42d4f4", "#f032e6", "#bfef45", "#fabed4", "#469990",
+        "#dcbeff", "#9A6324", "#800000", "#aaffc3", "#808000"
     };
 
     private final Grid<SamplePerson> grid = new Grid<>(SamplePerson.class);
@@ -74,22 +74,22 @@ public class PersonListView extends VerticalLayout {
 
         grid.setPartNameGenerator(person -> {
             if (!selectedOfficeIds.isEmpty() && person.getOfficeLocation() != null
-                    && selectedOfficeIds.contains(person.getOfficeLocation().getId())) {
+                && selectedOfficeIds.contains(person.getOfficeLocation().getId())) {
                 return "office-highlight-" + person.getOfficeLocation().getId();
             }
             return null;
         });
 
         badgeBar.getStyle()
-                .set("flex-wrap", "wrap")
-                .set("gap", "4px");
+            .set("flex-wrap", "wrap")
+            .set("gap", "4px");
         badgeBar.setWidthFull();
         badgeBar.setVisible(false);
 
         grid.setItems(query -> {
             Specification<SamplePerson> spec = buildFilter(filterField.getValue());
             return samplePersonService.list(
-                    VaadinSpringDataHelpers.toSpringPageRequest(query), spec).stream();
+                VaadinSpringDataHelpers.toSpringPageRequest(query), spec).stream();
         });
 
         filterField.addValueChangeListener(e -> {
@@ -113,10 +113,9 @@ public class PersonListView extends VerticalLayout {
 
         // Right side: edit form (full height)
         var editForm = new PersonEditForm(samplePersonService, skillRepository, officeLocationRepository,
-                this::editForm_closed);
+            this::editForm_closed);
 
         splitLayout.addToSecondary(editForm);
-        splitLayout.setSplitterPosition(65);
 
         // Create colored markers for all office locations
         var offices = officeLocationRepository.findAll();
@@ -127,7 +126,7 @@ public class PersonListView extends VerticalLayout {
             officeColorMap.put(office.getId(), color);
             var icon = createColoredMarkerIcon(color);
             var marker = new MarkerFeature(
-                    new Coordinate(office.getLongitude(), office.getLatitude()), icon);
+                new Coordinate(office.getLongitude(), office.getLatitude()), icon);
             marker.setId("office-" + office.getId());
             marker.setText(office.getName());
             markerCache.put(office.getId(), marker);
@@ -181,13 +180,13 @@ public class PersonListView extends VerticalLayout {
 
             var badge = new Span(office.getName() + " \u00d7");
             badge.getStyle()
-                    .set("background-color", color)
-                    .set("color", "white")
-                    .set("padding", "2px 8px")
-                    .set("border-radius", "12px")
-                    .set("font-size", "var(--lumo-font-size-s)")
-                    .set("cursor", "pointer")
-                    .set("text-shadow", "0 0 2px rgba(0,0,0,0.5)");
+                .set("background-color", color)
+                .set("color", "white")
+                .set("padding", "2px 8px")
+                .set("border-radius", "12px")
+                .set("font-size", "var(--lumo-font-size-s)")
+                .set("cursor", "pointer")
+                .set("text-shadow", "0 0 2px rgba(0,0,0,0.5)");
             badge.addClickListener(click -> {
                 selectedOfficeIds.remove(officeId);
                 updateBadges();
@@ -205,13 +204,13 @@ public class PersonListView extends VerticalLayout {
             String color = officeColorMap.get(officeId);
             if (color != null) {
                 sb.append("vaadin-grid::part(office-highlight-").append(officeId).append(") {")
-                        .append("background-color: color-mix(in srgb, ").append(color).append(" 25%, transparent);")
-                        .append("}");
+                    .append("background-color: color-mix(in srgb, ").append(color).append(" 25%, transparent);")
+                    .append("}");
             }
         }
         grid.getElement().executeJs(
-                "let s = this.__officeStyle; if(!s){s=document.createElement('style');this.parentElement.prepend(s);this.__officeStyle=s;} s.textContent=$0;",
-                sb.toString());
+            "let s = this.__officeStyle; if(!s){s=document.createElement('style');this.parentElement.prepend(s);this.__officeStyle=s;} s.textContent=$0;",
+            sb.toString());
     }
 
     private void refreshMap() {
@@ -248,7 +247,7 @@ public class PersonListView extends VerticalLayout {
         return (root, query, cb) -> {
             var predicates = new ArrayList<Predicate>();
             for (String field : List.of("firstName", "lastName", "email",
-                    "phone", "occupation", "role")) {
+                "phone", "occupation", "role")) {
                 predicates.add(cb.like(cb.lower(root.get(field)), pattern));
             }
             var lower = filterText.toLowerCase();
@@ -278,9 +277,9 @@ public class PersonListView extends VerticalLayout {
                 </svg>
                 """.formatted(color);
         var dataUri = "data:image/svg+xml," + svg
-                .replace("\n", "")
-                .replace("#", "%23")
-                .replace("\"", "'");
+            .replace("\n", "")
+            .replace("#", "%23")
+            .replace("\"", "'");
         var options = new Icon.Options();
         options.setSrc(dataUri);
         options.setScale(1.2f);

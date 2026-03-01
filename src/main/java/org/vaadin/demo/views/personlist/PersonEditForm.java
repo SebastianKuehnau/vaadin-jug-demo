@@ -61,8 +61,8 @@ class PersonEditForm extends VerticalLayout {
         officeLocation.setItemLabelGenerator(OfficeLocation::getName);
 
         var formLayout = new FormLayout(
-                firstName, lastName, email, phone, dateOfBirth,
-                occupation, role, important, officeLocation, skillsComboBox);
+            firstName, lastName, email, phone, dateOfBirth,
+            occupation, role, important, officeLocation, skillsComboBox);
 
         var save = new Button("Save");
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
@@ -81,6 +81,7 @@ class PersonEditForm extends VerticalLayout {
         save.addClickListener(e -> save());
         delete.addClickListener(e -> delete());
         cancel.addClickListener(e -> onChangeCallback.run());
+        setWidth("350px");
     }
 
     void populateForm(SamplePerson person) {
@@ -88,8 +89,8 @@ class PersonEditForm extends VerticalLayout {
         binder.readBean(person);
         if (person != null && person.getSkills() != null) {
             skillsComboBox.setValue(person.getSkills().stream()
-                    .map(Skill::getName)
-                    .collect(Collectors.toSet()));
+                .map(Skill::getName)
+                .collect(Collectors.toSet()));
         } else {
             skillsComboBox.clear();
         }
@@ -113,7 +114,7 @@ class PersonEditForm extends VerticalLayout {
             onChangeCallback.run();
         } catch (ObjectOptimisticLockingFailureException ex) {
             var n = Notification.show(
-                    "Error updating the data. Somebody else has updated the record while you were making changes.");
+                "Error updating the data. Somebody else has updated the record while you were making changes.");
             n.setPosition(Notification.Position.MIDDLE);
             n.addThemeVariants(NotificationVariant.LUMO_ERROR);
         } catch (ValidationException ex) {
@@ -124,7 +125,7 @@ class PersonEditForm extends VerticalLayout {
     private void syncSkills() {
         Set<String> selectedNames = skillsComboBox.getValue();
         Map<String, Skill> allSkillsByName = skillRepository.findAllOrdered().stream()
-                .collect(Collectors.toMap(Skill::getName, s -> s, (a, b) -> a));
+            .collect(Collectors.toMap(Skill::getName, s -> s, (a, b) -> a));
 
         var resolvedSkills = new ArrayList<Skill>();
         for (String name : selectedNames) {
