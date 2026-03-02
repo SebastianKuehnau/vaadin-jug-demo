@@ -1,3 +1,4 @@
+@import "theme-editor.css";
 @import 'main-layout.css';
 @import 'views/crud-example-view.css';
 @import 'views/gridwith-filters-view.css';
