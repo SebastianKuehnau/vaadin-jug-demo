@@ -3,7 +3,33 @@
  * manual changes to individual CSS properties may be overwritten by the theme editor.
  */
 html {
-  --aura-content-color-scheme:auto;
-  --aura-notification-color-scheme:auto;
-  color-scheme:auto;
+  --aura-content-color-scheme: light;
+  --aura-notification-color-scheme: light;
+  color-scheme: light;
+
+  /*!* Vaadin Brand Toolkit – Light Theme *!*/
+  --aura-blue: #056ff0;
+  --aura-purple: #4b2eff;
+  --aura-accent-color-light: #056ff0;
+  --aura-background-color-light: #f0f4f7;
+  --aura-neutral-light: #0f0f0f;
+  --aura-font-family: "Inter", system-ui, sans-serif;
+  --aura-base-font-size: 16;
+  --aura-surface-opacity: 0.6;
+  --aura-base-radius: 8;
+}
+
+/* Dark drawer navigation */
+vaadin-app-layout::part(drawer) {
+  --aura-accent-color-dark: #056ff0;
+}
+
+/* Brand gradient on primary buttons */
+vaadin-button[theme~="primary"] {
+  background: linear-gradient(135deg, #056ff0, #25d8d8);
+  border: none;
+}
+
+vaadin-button[theme~="primary"]:hover {
+  background: linear-gradient(135deg, #0565db, #1fc4c4);
 }

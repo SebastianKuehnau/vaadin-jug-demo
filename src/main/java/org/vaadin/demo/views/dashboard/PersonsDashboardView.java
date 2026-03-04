@@ -2,10 +2,11 @@ package org.vaadin.demo.views.dashboard;
 
 import com.vaadin.flow.component.charts.Chart;
 import com.vaadin.flow.component.charts.model.*;
+import com.vaadin.flow.component.charts.model.style.SolidColor;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Menu;
-import com.vaadin.flow.router.PageTitle;
+
 import com.vaadin.flow.router.Route;
 import org.springframework.data.domain.Pageable;
 import org.vaadin.demo.data.SamplePerson;
@@ -24,6 +25,15 @@ import java.util.stream.Collectors;
 @Route("persons-dashboard")
 @Menu(order = 2, icon = LineAwesomeIconUrl.CHART_BAR_SOLID, title = "Person Dashboard")
 public class PersonsDashboardView extends VerticalLayout {
+
+    // Vaadin Brand Toolkit colors
+    private static final SolidColor[] BRAND_COLORS = {
+        new SolidColor("#056ff0"), new SolidColor("#4b2eff"),
+        new SolidColor("#00ade7"), new SolidColor("#0A3669"),
+        new SolidColor("#452BE7"), new SolidColor("#25d8d8"),
+        new SolidColor("#0565DB"), new SolidColor("#271C6F"),
+        new SolidColor("#3498db"), new SolidColor("#6c5ce7")
+    };
 
     public PersonsDashboardView(SamplePersonService service) {
         setSizeFull();
@@ -79,7 +89,12 @@ public class PersonsDashboardView extends VerticalLayout {
         conf.setPlotOptions(plotOptions);
 
         var series = new DataSeries("Skills");
-        sorted.forEach((name, count) -> series.add(new DataSeriesItem(name, count)));
+        int[] idx = {0};
+        sorted.forEach((name, count) -> {
+            var item = new DataSeriesItem(name, count);
+            item.setColor(BRAND_COLORS[idx[0]++ % BRAND_COLORS.length]);
+            series.add(item);
+        });
         conf.addSeries(series);
 
         chart.setWidthFull();
@@ -120,8 +135,13 @@ public class PersonsDashboardView extends VerticalLayout {
         plotOptions.setColorByPoint(true);
         conf.setPlotOptions(plotOptions);
 
-        var series = new ListSeries("Persons",
-                cohorts.values().stream().map(Long::intValue).collect(Collectors.toList()));
+        var series = new DataSeries("Persons");
+        int[] idx = {0};
+        cohorts.forEach((label, count) -> {
+            var item = new DataSeriesItem(label, count);
+            item.setColor(BRAND_COLORS[idx[0]++ % BRAND_COLORS.length]);
+            series.add(item);
+        });
         conf.addSeries(series);
 
         chart.setWidthFull();
@@ -145,7 +165,12 @@ public class PersonsDashboardView extends VerticalLayout {
         conf.setPlotOptions(plotOptions);
 
         var series = new DataSeries("Roles");
-        roleCounts.forEach((role, count) -> series.add(new DataSeriesItem(role, count)));
+        int[] idx = {0};
+        roleCounts.forEach((role, count) -> {
+            var item = new DataSeriesItem(role, count);
+            item.setColor(BRAND_COLORS[idx[0]++ % BRAND_COLORS.length]);
+            series.add(item);
+        });
         conf.addSeries(series);
 
         return chart;

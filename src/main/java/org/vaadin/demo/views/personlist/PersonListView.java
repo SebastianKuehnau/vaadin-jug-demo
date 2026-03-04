@@ -34,10 +34,11 @@ import java.util.Set;
 @Menu(order = 1, title = "Person Management", icon = LineAwesomeIconUrl.PERSON_BOOTH_SOLID)
 public class PersonListView extends VerticalLayout {
 
+    // Vaadin Brand Toolkit colors
     private static final String[] MARKER_COLORS = {
-        "#e6194b", "#3cb44b", "#4363d8", "#f58231", "#911eb4",
-        "#42d4f4", "#f032e6", "#bfef45", "#fabed4", "#469990",
-        "#dcbeff", "#9A6324", "#800000", "#aaffc3", "#808000"
+        "#056ff0", "#4b2eff", "#00ade7", "#0A3669", "#452BE7",
+        "#25d8d8", "#0565DB", "#271C6F", "#3498db", "#6c5ce7",
+        "#0f0f0f", "#056ff0", "#4b2eff", "#00ade7", "#0A3669"
     };
 
     private final Grid<SamplePerson> grid = new Grid<>(SamplePerson.class);
