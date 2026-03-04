@@ -3,7 +3,17 @@
 A demo-friendly **Vaadin + Spring Boot** app to showcase how you can build modern, reactive UIs in pure Java.
 Run it locally, explore the examples, and use it as a starting point for your own projects.
 
+![App Screenshot](docs/app-screenshot.png)
+
 ---
+
+## 🎯 Why this project?
+Most backend developers "fly blind" behind JSON responses and log files. This demo accompanies the talk **"Your Backend Deserves a Face"**.
+
+It shows how to:
+* **Stop the Blind Flight:** Visualize and interact with your data in real-time.
+* **Kill the Plumbing:** Build UIs without writing a single REST controller or DTO. Go Full-Stack!
+* **Stress-Test your Logic:** See how your filters, sorting, and validations behave under real conditions.
 
 ## Tech Stack
 
@@ -25,31 +35,13 @@ Run it locally, explore the examples, and use it as a starting point for your ow
 * JDK 21+
 * Internet access (for frontend dependencies & AI calls)
 * Maven not required globally — use included `./mvnw`
-* A valid **OpenAI API key** (for AI chat features)
+* **Optional:** An OpenAI API key (only needed for the AI chat views)
 
-> Vaadin automatically manages frontend tooling during dev builds.
-
----
-
-### 1. Configure AI Access
-
-This project uses **Spring AI**. Provide your OpenAI key as environment variable:
-
-```bash
-export OPENAI_API_KEY=sk-...
-```
-
-Or in `src/main/resources/application.properties`:
-
-```properties
-spring.ai.openai.api-key=${OPENAI_API_KEY}
-```
-
-See the [Vaadin AI docs](https://vaadin.com/docs/latest/building-apps/ai/technical-setup) for setup instructions.
+> The app starts and works fine **without an API key** — all views except AI Chat and AI Chat & Context are fully functional. No key needed to explore grids, charts, forms, or the map.
 
 ---
 
-### 2. Run in Dev Mode
+### 1. Run in Dev Mode
 
 ```bash
 ./mvnw
@@ -61,17 +53,16 @@ Then open: [http://localhost:8080](http://localhost:8080)
 
 ---
 
-### 3. Run from IDE
+### 2. Run from IDE
 
 * Import as **Maven** project
-* Configure OpenAI API key ([docs](https://vaadin.com/docs/latest/building-apps/ai/technical-setup/ide))
 * Run `Application.java` (Spring Boot main class)
 
 Tip: Use **Hotswap Agent** to instantly see code changes in your browser.
 
 ---
 
-### 4. Production Build & Run
+### 3. Production Build & Run
 
 ```bash
 ./mvnw -Pproduction clean package
@@ -168,6 +159,18 @@ src/main/resources/
          ├─ data-grid-view.css
          └─ slow-grid-view.css
 ```
+
+---
+
+## Optional: Enable AI Chat
+
+To use the AI-powered chat views, provide your OpenAI key:
+
+```bash
+export OPENAI_API_KEY=sk-...
+```
+
+Without this key, all other views work normally. Only the AI Chat and AI Chat & Context views require it.
 
 ---
 
