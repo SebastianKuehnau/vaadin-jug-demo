@@ -19,8 +19,7 @@ public class JUGSessionController {
     @GetMapping("/title")
     public Map<String, String> getTitle() {
         return Map.of(
-                "title", "Your Backend Deserves a Face",
-                "subtitle", "Building Modern UIs with Java only");
+                "title", "Your Backend Deserves a Face");
     }
 
     // Endpoint 2: For the browser demo (more data for pretty printing)
@@ -28,7 +27,7 @@ public class JUGSessionController {
     public Map<String, Object> getSpeaker() {
         return Map.of(
                 "name", "Sebastian Kühnau",
-                "role", "Developer Advocate @ Vaadin",
+                "role", "Enthusiast @ Vaadin",
                 "motto", "Fight for simplicity",
                 "agenda", Map.of(
                         "part1", "The Visi- & Usability Gap",
