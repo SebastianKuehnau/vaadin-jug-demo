@@ -72,8 +72,7 @@
     <dependencies>
         <dependency>
             <groupId>com.vaadin</groupId>
-            <!-- Replace artifactId with vaadin-core to use only free components -->
-            <artifactId>vaadin</artifactId>
+            <artifactId>vaadin-core</artifactId>
         </dependency>
         <!-- for better DX (HotReload, Client Side Debugging, etc.) -->
         <dependency>
@@ -99,6 +98,16 @@
             <groupId>org.vaadin.addons.componentfactory</groupId>
             <artifactId>spinner</artifactId>
             <version>24.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>software.xdev.vaadin.maps-leaflet</groupId>
+            <artifactId>flow</artifactId>
+            <version>6.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.appreciated</groupId>
+            <artifactId>apexcharts</artifactId>
+            <version>24.0.2</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
