@@ -34,7 +34,7 @@ public class MainLayout extends AppLayout implements AfterNavigationObserver {
         addDrawerContent();
         addHeaderContent();
 
-        setDrawerOpened(false);
+        setDrawerOpened(true);
     }
 
     private void addHeaderContent() {
