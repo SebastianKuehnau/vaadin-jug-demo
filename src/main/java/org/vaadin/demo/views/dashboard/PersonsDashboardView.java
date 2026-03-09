@@ -1,12 +1,16 @@
 package org.vaadin.demo.views.dashboard;
 
-import com.vaadin.flow.component.charts.Chart;
-import com.vaadin.flow.component.charts.model.*;
-import com.vaadin.flow.component.charts.model.style.SolidColor;
+import com.github.appreciated.apexcharts.ApexCharts;
+import com.github.appreciated.apexcharts.ApexChartsBuilder;
+import com.github.appreciated.apexcharts.config.builder.*;
+import com.github.appreciated.apexcharts.config.chart.Type;
+import com.github.appreciated.apexcharts.config.legend.Position;
+import com.github.appreciated.apexcharts.config.plotoptions.builder.BarBuilder;
+import com.github.appreciated.apexcharts.helper.Series;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Menu;
-
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.springframework.data.domain.Pageable;
 import org.vaadin.demo.data.SamplePerson;
@@ -22,17 +26,14 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+@PageTitle("Person Dashboard")
 @Route("persons-dashboard")
 @Menu(order = 2, icon = LineAwesomeIconUrl.CHART_BAR_SOLID, title = "Person Dashboard")
 public class PersonsDashboardView extends VerticalLayout {
 
-    // Vaadin Brand Toolkit colors
-    private static final SolidColor[] BRAND_COLORS = {
-        new SolidColor("#056ff0"), new SolidColor("#4b2eff"),
-        new SolidColor("#00ade7"), new SolidColor("#0A3669"),
-        new SolidColor("#452BE7"), new SolidColor("#25d8d8"),
-        new SolidColor("#0565DB"), new SolidColor("#271C6F"),
-        new SolidColor("#3498db"), new SolidColor("#6c5ce7")
+    private static final String[] BRAND_COLORS = {
+        "#056ff0", "#4b2eff", "#00ade7", "#0A3669", "#452BE7",
+        "#25d8d8", "#0565DB", "#271C6F", "#3498db", "#6c5ce7"
     };
 
     public PersonsDashboardView(SamplePersonService service) {
@@ -50,128 +51,93 @@ public class PersonsDashboardView extends VerticalLayout {
         topRow.setWidthFull();
         topRow.setHeight("50%");
 
-        roleChart.setWidth("50%");
-        roleChart.setHeight("50%");
+        var bottomRow = new HorizontalLayout(roleChart);
+        bottomRow.setWidthFull();
+        bottomRow.setHeight("50%");
+        bottomRow.setJustifyContentMode(JustifyContentMode.START);
 
-        add(topRow, roleChart);
+        add(topRow, bottomRow);
     }
 
-    private Chart createSkillsChart(List<SamplePerson> persons) {
-        // Count skill occurrences
+    private ApexCharts createSkillsChart(List<SamplePerson> persons) {
         Map<String, Long> skillCounts = persons.stream()
                 .filter(p -> !p.getSkills().isEmpty())
                 .flatMap(p -> p.getSkills().stream())
                 .collect(Collectors.groupingBy(Skill::getName, Collectors.counting()));
 
-        // Sort by count descending
         var sorted = skillCounts.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
                         (a, b) -> a, LinkedHashMap::new));
 
-        var chart = new Chart(ChartType.BAR);
-        var conf = chart.getConfiguration();
-        conf.setTitle("Team Skills");
-
-        var x = new XAxis();
-        x.setCategories(sorted.keySet().toArray(String[]::new));
-        conf.addxAxis(x);
-
-        var y = new YAxis();
-        y.setMin(0);
-        y.setTitle("Number of Persons");
-        conf.addyAxis(y);
-
-        conf.getLegend().setEnabled(false);
-
-        var plotOptions = new PlotOptionsBar();
-        plotOptions.setColorByPoint(true);
-        conf.setPlotOptions(plotOptions);
-
-        var series = new DataSeries("Skills");
-        int[] idx = {0};
-        sorted.forEach((name, count) -> {
-            var item = new DataSeriesItem(name, count);
-            item.setColor(BRAND_COLORS[idx[0]++ % BRAND_COLORS.length]);
-            series.add(item);
-        });
-        conf.addSeries(series);
+        var chart = ApexChartsBuilder.get()
+            .withChart(ChartBuilder.get().withType(Type.BAR).build())
+            .withTitle(TitleSubtitleBuilder.get().withText("Team Skills").build())
+            .withPlotOptions(PlotOptionsBuilder.get()
+                .withBar(BarBuilder.get().withHorizontal(true).withDistributed(true).build())
+                .build())
+            .withColors(BRAND_COLORS)
+            .withLegend(LegendBuilder.get().withShow(false).build())
+            .withXaxis(XAxisBuilder.get()
+                .withCategories(sorted.keySet().toArray(String[]::new))
+                .build())
+            .withSeries(new Series<>("Skills",
+                sorted.values().stream().map(Long::doubleValue).toArray(Double[]::new)))
+            .build();
 
         chart.setWidthFull();
         chart.setHeight("100%");
         return chart;
     }
 
-    private Chart createAgeChart(List<SamplePerson> persons) {
+    private ApexCharts createAgeChart(List<SamplePerson> persons) {
         var today = LocalDate.now();
 
-        // Group by decade cohorts
         Map<String, Long> cohorts = new TreeMap<>();
         for (var person : persons) {
             if (person.getDateOfBirth() == null) continue;
             int age = Period.between(person.getDateOfBirth(), today).getYears();
             int decade = (age / 10) * 10;
-            String label = decade + "–" + (decade + 9);
+            String label = decade + "\u2013" + (decade + 9);
             cohorts.merge(label, 1L, Long::sum);
         }
 
-        var chart = new Chart(ChartType.COLUMN);
-        var conf = chart.getConfiguration();
-        conf.setTitle("Age Distribution (10-Year Cohorts)");
-
-        var x = new XAxis();
-        x.setCategories(cohorts.keySet().toArray(String[]::new));
-        x.setTitle("Age");
-        conf.addxAxis(x);
-
-        var y = new YAxis();
-        y.setMin(0);
-        y.setTitle("Number of Persons");
-        conf.addyAxis(y);
-
-        conf.getLegend().setEnabled(false);
-
-        var plotOptions = new PlotOptionsColumn();
-        plotOptions.setColorByPoint(true);
-        conf.setPlotOptions(plotOptions);
-
-        var series = new DataSeries("Persons");
-        int[] idx = {0};
-        cohorts.forEach((label, count) -> {
-            var item = new DataSeriesItem(label, count);
-            item.setColor(BRAND_COLORS[idx[0]++ % BRAND_COLORS.length]);
-            series.add(item);
-        });
-        conf.addSeries(series);
+        var chart = ApexChartsBuilder.get()
+            .withChart(ChartBuilder.get().withType(Type.BAR).build())
+            .withTitle(TitleSubtitleBuilder.get().withText("Age Distribution (10-Year Cohorts)").build())
+            .withPlotOptions(PlotOptionsBuilder.get()
+                .withBar(BarBuilder.get().withDistributed(true).build())
+                .build())
+            .withColors(BRAND_COLORS)
+            .withLegend(LegendBuilder.get().withShow(false).build())
+            .withXaxis(XAxisBuilder.get()
+                .withCategories(cohorts.keySet().toArray(String[]::new))
+                .build())
+            .withSeries(new Series<>("Persons",
+                cohorts.values().stream().map(Long::doubleValue).toArray(Double[]::new)))
+            .build();
 
         chart.setWidthFull();
         chart.setHeight("100%");
         return chart;
     }
 
-    private Chart createRoleChart(List<SamplePerson> persons) {
+    private ApexCharts createRoleChart(List<SamplePerson> persons) {
         Map<String, Long> roleCounts = persons.stream()
                 .filter(p -> p.getRole() != null && !p.getRole().isBlank())
                 .collect(Collectors.groupingBy(SamplePerson::getRole, Collectors.counting()));
 
-        var chart = new Chart(ChartType.PIE);
-        var conf = chart.getConfiguration();
-        conf.setTitle("Role Distribution");
+        var chart = ApexChartsBuilder.get()
+            .withChart(ChartBuilder.get().withType(Type.PIE).build())
+            .withTitle(TitleSubtitleBuilder.get().withText("Role Distribution").build())
+            .withLabels(roleCounts.keySet().toArray(String[]::new))
+            .withSeries(roleCounts.values().stream().map(Long::doubleValue).toArray(Double[]::new))
+            .withColors(BRAND_COLORS)
+            .withLegend(LegendBuilder.get().withPosition(Position.BOTTOM).build())
+            .build();
 
-        var plotOptions = new PlotOptionsPie();
-        plotOptions.setAllowPointSelect(true);
-        plotOptions.setCursor(Cursor.POINTER);
-        plotOptions.setShowInLegend(true);
-        conf.setPlotOptions(plotOptions);
-
-        var series = new DataSeries("Roles");
-        int[] idx = {0};
-        roleCounts.forEach((role, count) -> {
-            var item = new DataSeriesItem(role, count);
-            item.setColor(BRAND_COLORS[idx[0]++ % BRAND_COLORS.length]);
-            series.add(item);
-        });
-        conf.addSeries(series);
+        chart.setWidth("75%");
+        chart.setHeight("100%");
 
         return chart;
     }
