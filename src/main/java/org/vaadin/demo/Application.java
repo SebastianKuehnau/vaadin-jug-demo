@@ -8,11 +8,13 @@ import javax.sql.DataSource;
 import com.vaadin.flow.theme.aura.Aura;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.jdbc.autoconfigure.ApplicationDataSourceScriptDatabaseInitializer;
 import org.springframework.boot.sql.autoconfigure.init.SqlInitializationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.vaadin.demo.data.SamplePersonRepository;
+
+import javax.sql.DataSource;
 
 /**
  * The entry point of the Spring Boot application.
