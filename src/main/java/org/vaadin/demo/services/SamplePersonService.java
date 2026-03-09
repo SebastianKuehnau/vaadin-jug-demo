@@ -68,6 +68,15 @@ public class SamplePersonService {
         return officeLocationRepository.findAll();
     }
 
+    public Map<String, Long> getSkillCounts(Specification<SamplePerson> filter) {
+        List<SamplePerson> persons = repository.findAll(filter);
+        return persons.stream()
+                .flatMap(p -> p.getSkills().stream())
+                .collect(Collectors.groupingBy(
+                        s -> s.getName(),
+                        Collectors.counting()));
+    }
+
     public Map<Long, Long> getOfficeLocationCounts(Specification<SamplePerson> filter) {
         List<SamplePerson> persons = repository.findAll(filter);
         return persons.stream()
