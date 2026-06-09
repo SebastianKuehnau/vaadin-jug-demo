@@ -1,58 +1,43 @@
 package org.vaadin.demo.data;
 
-public class Talk {
+import jakarta.persistence.Entity;
 
-    private int id;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+@Entity
+public class Talk extends AbstractEntity {
+
     private String category;
     private String speaker;
     private String topic;
-    private String language;
+    private LocalDate date;
+    private LocalTime time;
 
-    public Talk(int id, String category, String topic, String speaker, String language) {
-        this.id = id;
+    public Talk() {
+    }
+
+    public Talk(String category, String topic, String speaker,
+                LocalDate date, LocalTime time) {
         this.category = category;
         this.topic = topic;
         this.speaker = speaker;
-        this.language = language;
+        this.date = date;
+        this.time = time;
     }
 
-    public int getId() {
-        return id;
-    }
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public String getSpeaker() { return speaker; }
+    public void setSpeaker(String speaker) { this.speaker = speaker; }
 
-    public String getCategory() {
-        return category;
-    }
+    public String getTopic() { return topic; }
+    public void setTopic(String topic) { this.topic = topic; }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
+    public LocalDate getDate() { return date; }
+    public void setDate(LocalDate date) { this.date = date; }
 
-    public String getSpeaker() {
-        return speaker;
-    }
-
-    public void setSpeaker(String speaker) {
-        this.speaker = speaker;
-    }
-
-    public String getTopic() {
-        return topic;
-    }
-
-    public void setTopic(String topic) {
-        this.topic = topic;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
+    public LocalTime getTime() { return time; }
+    public void setTime(LocalTime time) { this.time = time; }
 }

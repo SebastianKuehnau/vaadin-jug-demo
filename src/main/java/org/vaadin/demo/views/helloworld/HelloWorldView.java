@@ -15,15 +15,15 @@ import org.vaadin.lineawesome.LineAwesomeIconUrl;
 @Menu(order = 0, icon = LineAwesomeIconUrl.GLOBE_SOLID)
 public class HelloWorldView extends HorizontalLayout {
 
-    private TextField name;
-    private Button sayHello;
+    TextField name;
+    Button sayHello;
 
     public HelloWorldView() {
         name = new TextField("Your name");
         sayHello = new Button("Say hello");
-        sayHello.addClickListener(e -> {
-            Notification.show("Hello " + name.getValue());
-        });
+        sayHello.addClickListener(_ ->
+            Notification.show("Hello " + name.getValue())
+        );
         sayHello.addClickShortcut(Key.ENTER);
 
         setVerticalComponentAlignment(Alignment.BASELINE, name, sayHello);

@@ -4,28 +4,15 @@
   height: 100%;
 }
 
-.crud-example-view vaadin-split-layout {
-  width: 100%;
-  height: 100%;
-}
-
-.crud-example-view vaadin-grid {
-  height: 100%;
-}
-
 .crud-example-view .editor-layout {
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: 200px;
 }
 
 .crud-example-view .editor {
   flex-grow: 1;
-  padding: var(--vaadin-padding-l);
-}
-
-.crud-example-view .editor vaadin-checkbox {
-  padding-top: var(--vaadin-padding-m);
+  padding: var(--vaadin-padding-s);
 }
 
 .crud-example-view .button-layout {
