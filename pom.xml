@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <!-- Project from https://start.vaadin.com/project/0888edd5-8d56-4acc-9f80-cd0677fda029 -->
     <groupId>org.vaadin.demo</groupId>
@@ -8,7 +10,7 @@
     <packaging>jar</packaging>
     <properties>
         <java.version>25</java.version>
-        <vaadin.version>25.1.5</vaadin.version>
+        <vaadin.version>25.1.7</vaadin.version>
         <spring.ai.version>2.0.0-M5</spring.ai.version>
     </properties>
     <parent>
@@ -70,15 +72,26 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
+        <!-- Framework, Base Components, Dev Tools -->
         <dependency>
             <groupId>com.vaadin</groupId>
             <!-- Replace artifactId with vaadin-core to use only free components -->
             <artifactId>vaadin</artifactId>
         </dependency>
+        <!-- Vaadin Dev Server (dev mode only) and Copilot (AI Frontend Tool)
+            - Vite dev server for frontend resources with hot module replacement
+            - Live reload on Java code changes
+            - Development tools / Copilot integration
+            - Unoptimized frontend bundling for faster startup -->
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-dev</artifactId>
         </dependency>
+        <!-- vaadin-spring-boot-starter: Core Vaadin integration for Spring Boot
+           - Auto-configuration for Vaadin with embedded web server
+           - Spring dependency injection and Spring Security support
+           - Servlet registration and session management
+           - Live reload with Spring Boot DevTools -->
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-spring-boot-starter</artifactId>
@@ -91,11 +104,6 @@
             <groupId>org.parttio</groupId>
             <artifactId>line-awesome</artifactId>
             <version>2.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.vaadin.addons.componentfactory</groupId>
-            <artifactId>spinner</artifactId>
-            <version>24.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -115,6 +123,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
+        <!-- spring-boot-devtools: Enables automatic server restart on classpath changes
+            - Vaadin detects the restart and triggers a browser live reload
+            - Uses a custom classloader to restart only application classes (faster than full restart)
+            - Session is preserved across restarts -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
