@@ -137,6 +137,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- Browserless UI-Unit-Tests -->
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>browserless-test-junit6</artifactId>
